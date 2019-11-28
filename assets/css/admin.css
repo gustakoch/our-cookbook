@@ -1,0 +1,427 @@
+@charset "utf-8";
+
+/* Admin page
+*********************************************/
+
+.content {
+    margin-bottom: 95px;
+}
+
+header {
+    background: #f45000;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #eee;
+}
+.navbar-dark .navbar-toggler {
+    border-color: #f45000;
+}
+.navbar-nav {
+    margin: 10px 0;
+    padding-left: 10px;
+}
+.divided {
+    width: 1px;
+    background: #fcbfa0;
+    margin: 12px 20px;
+}
+
+.ultimas-receitas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid red; */
+    margin-top: 15px;
+}
+.ultimas-receitas h3 {
+    font-variant: small-caps;
+    font-weight: bold;
+    color: #666;
+    margin: 0;
+}
+
+.btn-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-home a {
+    width: 500px;
+    max-width: 92%;
+    text-align: center;
+}
+.btn-home a:hover {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.8;
+}
+.btn-home a:active { opacity: 1; }
+
+/* Footer
+*********************************************/
+
+.main-footer {
+    height: 79px;
+    background: #f45000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Página de cadastro de nova receita
+*********************************************/
+
+textarea { font-size: 14px; }
+
+.nova-receita {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.nova-receita h4 {
+    font-variant: small-caps;
+    font-weight: bold;
+}
+.nova-receita form {
+    display: flex;
+    flex-direction: column;
+}
+.nova-receita .input-imagem {
+    border: 1px dashed #ccc;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+}
+.nova-receita .form-inputs {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 7px;
+}
+.lista-ingredientes {
+    list-style: none;
+    margin-left: -30px;
+}
+
+.box-image {
+    height: 250px;
+    border-radius: 4px;
+    border: 1px dashed #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img-label {
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+}
+#img-label:hover {
+    color: #f45000;
+}
+
+.img-loaded {
+    height: 250px;
+    width: 100%;
+}
+
+
+/* Página de cadastro de ingredientes
+*********************************************/
+
+.ingredientes-cadastrados {
+    list-style: none;
+    margin: 5px;
+    padding: 0;
+}
+.ingredientes-cadastrados li {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+}
+
+/* Página de configurações gerais
+*********************************************/
+.configuracoes {
+    max-width: 550px;
+    width: 100%;
+}
+.configuracoes h4 {
+    font-variant: small-caps;
+    font-weight: bold;
+}
+.configuracoes h6 {
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+}
+
+.box-usuario {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+}
+.box-usuario .imagem {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+}
+.box-usuario .imagem img {
+    position: absolute;
+}
+.box-usuario .imagem span {
+    position: relative;
+    top: -7px;
+    left: 35px;
+    color: #999;
+}
+
+.box-usuario .info-usuario {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    width: 45%;
+}
+.box-usuario .info-usuario span {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: -5px;
+}
+.box-usuario .info-usuario span:nth-child(2) {
+    margin-bottom: 10px;
+}
+.box-usuario .info-usuario span:nth-child(4) {
+    margin-bottom: 10px;
+}
+
+.box-usuario .status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+}
+
+/* Página de todas as receitas
+********************************************/
+
+.bg-orange {
+    background: #f45000;
+}
+
+.lista-receitas {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+.lista-receitas:nth-child(3),
+.lista-receitas:nth-child(4) {
+    margin-bottom: 7px;
+}
+
+.lista-receitas:hover {
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.lista-receitas img {
+    border-radius: 4px;
+    max-width: 30%;
+    max-height: 100px;
+    cursor: pointer;
+}
+
+.group-receitas {
+    width: 70%;
+    margin: -2px 8px 0 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.group-receitas strong {
+    font-size: 14px;
+}
+.group-receitas p {
+    font-size: 12px;
+    margin: 0;
+}
+.group-receitas button {
+    max-width: 35px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    align-self: flex-end;
+    justify-self: end;
+}
+.group-receitas button i {
+    font-size: 18px;
+}
+
+.box-pesquisa {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    border-radius: 4px 0 0 4px;
+}
+.box-pesquisa input {
+    width: 75%;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    padding: 7px;
+    /* box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2); */
+}
+.box-pesquisa button {
+    width: 25%;
+    border: 0;
+    background: #f45000;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.box-pesquisa button:hover { opacity: 0.8; }
+.box-pesquisa button:active { opacity: 1; }
+
+/* Modal das receitas
+************************************************************/
+
+.modal-body {
+    padding: 0;
+}
+#img-receita-modal {
+    max-height: 230px;
+    width: 100%;
+}
+.modal-header {
+    align-items: center;
+}
+
+.conteudo-receita {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.conteudo-receita small {
+    font-size: 10px;
+}
+.conteudo-receita h6 {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#lista-ingredientes {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+}
+
+#modo-de-preparo {
+    font-size: 14px;
+}
+
+.modal-footer button {
+    background-color: #f45000;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-variant: small-caps;
+    font-size: 17px;
+}
+
+.modal-footer button:hover {
+    color: #fff;
+    opacity: 0.8;
+}
+
+.icones-receita {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: -15px;
+}
+.icones-receita .icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.icones-receita .icons span {
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+/* Página de alteração de senhas no painel
+************************************************************/
+
+#form-alteracao-senha label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* Media Queries
+************************************************************/
+
+@media (max-width: 575.98px) {
+    .configuracoes {
+        width: 90%;
+    }
+    .box-usuario {
+        flex-direction: column;
+        align-items: left;
+    }
+    .box-usuario img {
+        width: 100px;
+    }
+    .box-usuario .info-usuario {
+        padding: 20px 0;
+        margin: 0;
+    }
+    .box-usuario .status {
+        align-items: flex-start;
+        margin: 0;
+    }
+
+    .box-usuario .imagem {
+        height: 70px;
+    }
+    .box-usuario .imagem img {
+        width: 80px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}

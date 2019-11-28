@@ -1,0 +1,20 @@
+{
+  "name": "cookbook",
+  "description": "App de cadastro de receitas",
+  "require": {
+    "php": ">= 7.0",
+    "sendgrid/sendgrid": "~7"
+  },
+  "authors": [
+    {
+      "name": "Gustavo Koch",
+      "email": "gustavok@outlook.com.br"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+      "Resources\\": "vendor/Resources/"
+    }
+  }
+}

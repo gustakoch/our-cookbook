@@ -1,0 +1,42 @@
+<div class="wrapper">
+    <img src="../../../assets/images/logo.png" alt="Logotipo" width="100" onclick="window.location='/'" title="Ir para Página inicial" style="cursor:pointer;">
+    <h3>Criar uma nova conta</h3>
+
+    <?php if (isset($_GET['ok'])) { ?>
+        <span class="animated heartBeat ok-message">Conta criada com sucesso!</span>
+        <small class="animated bouce text-success" style="margin-bottom:10px;">Sua conta precisa ser ativada por um administrador. Por favor, aguarde...</small>
+    <?php } ?>
+
+    <?php if (isset($this->dados->erro_validacao)) { ?>
+        <small class="animated bounce">* Erro: <?= $this->dados->erro_validacao['msg']; ?></small>
+    <?php } ?>
+
+    <form action="/criarnovaconta" method="post">
+        <input type="text" value="<?= $this->dados->erro_validacao['nome']; ?>" name="nome" id="nome" placeholder="Seu nome completo">
+        <input type="email" value="<?= $this->dados->erro_validacao['email']; ?>" name="email" id="email" placeholder="Seu melhor e-mail">
+
+        <div class="show-hide-password">
+            <input type="password" value="<?= $this->dados->erro_validacao['senha']; ?>" name="senha" id="senha" placeholder="Sua senha secreta">
+            <button id="btn-password" type="button" title="Mostrar/ocultar senha"><i class="fas fa-eye"></i></button>
+        </div>
+        <small id="txtcapslock" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
+
+        <div class="show-hide-password">
+            <input type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Confirme sua senha secreta">
+            <button id="btn-password-confirmar" type="button" title="Mostrar/ocultar senha"><i class="fas fa-eye"></i></button>
+        </div>
+        <small id="txtcapslock2" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
+
+        <button class="btn-custom" id="criarconta" type="submit">Criar conta &raquo;</button>
+
+        <div class="info">
+            <span>Já possui uma conta? <a href="/">Fazer login</a></span>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#criarconta').click(function() {
+        $(this).html('<i class="fas fa-spinner"></i> Criando conta...');
+    });
+</script>

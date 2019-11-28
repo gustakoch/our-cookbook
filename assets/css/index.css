@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+/* Definindo padrão do layout
+************************************************************/
+
+button:focus, input:focus, textarea:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+
+body, html {
+    height: 100%;
+    background: url('../images/bg_10por.png');
+    background-size: cover;
+    background-attachment: fixed;
+}
+body, input, label, textarea { font-family: 'Roboto', sans-serif; color: #333; }
+input { font-size: 14px; }
+
+/* Login page
+************************************************************/
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.wrapper h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: -5px;
+    font-size: 24px;
+}
+.wrapper img {
+    margin-bottom: 15px;
+}
+.wrapper form {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    width: 90%;
+}
+.wrapper form input {
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 7px;
+}
+.btn-custom {
+    margin-top: 15px;
+    border: 0;
+    background: #f45000;
+    color: #fff;
+    padding: 7px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+}
+.btn-custom:hover { opacity: 0.9; }
+.btn-custom:active { opacity: 1; }
+
+.wrapper .ok-message {
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    color: #038f1a;
+    font-weight: bold;
+}
+.wrapper small {
+    color: #f40000;
+    margin-bottom: 5px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+.info {
+    justify-content: flex-end;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: right;
+}
+.info a {
+    color: #f45000;
+    font-size: 14px;
+}
+
+.show-hide-password {
+    display: flex;
+}
+.show-hide-password input {
+    width: 89%;
+}
+.show-hide-password button {
+    width: 10%;
+    border: 0;
+    margin-left: 1%;
+    border: 1px solid #ddd;
+    background: transparent;
+    height: 37px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.show-hide-password button:hover {
+    background: #eee;
+}
+.show-hide-password button:active {
+    background: transparent;
+}
+
+.lembrar-recuperar-senha {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.lembrar-senha {
+    display: flex;
+    margin-left: 2px;
+    align-items: center;
+    color: #666;
+    cursor: pointer;
+}
+.lembrar-recuperar-senha .lembrar-senha input {
+    margin: 0;
+    padding: 0;
+}
+.lembrar-senha label {
+    font-size: 14px;
+    margin: 0 0 0 5px;
+}
+.recuperar-senha a {
+    font-size: 14px;
+    color: #f45000;
+}
+
+/* Página de recuperação de senha
+************************************************************/
+
+.links-recuperacao {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 450px;
+    max-width: 90%;
+}
+.links-recuperacao a {
+    font-size: 14px;
+    color: #f45000;
+    margin-top: 15px;
+}
+
+.alteracao-de-senha {
+    justify-content: center;
+}
+
+/* Media Queries
+************************************************************/
+
+@media (max-width: 575.98px) {
+
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}

@@ -1,0 +1,6 @@
+data/
+uploads/*
+!uploads/.gitkeep
+logs/*
+!logs/.gitkeep
+sendgrid.envsendgrid.env

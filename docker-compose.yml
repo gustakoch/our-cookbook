@@ -1,0 +1,31 @@
+version: "3"
+services:
+    apache:
+        build: .
+        container_name: apache-php
+        ports:
+            - "3334:80"
+        volumes:
+            - ./:/var/www/html/
+        links:
+            - database
+        networks:
+            - default
+        restart: always
+
+    database:
+        image: mysql:5.7
+        container_name: mysqldb
+        ports:
+            - "3307:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: cookbook
+            MYSQL_USER: dev
+            MYSQL_PASSWORD: dev
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        networks:
+            - default
+        restart: always
