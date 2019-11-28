@@ -160,7 +160,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/buscar_receita_por_id",
+                url: "/buscarreceitaporid",
                 dataType: 'json',
                 data: {
                     id: idReceita

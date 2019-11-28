@@ -147,7 +147,7 @@ class Usuario extends Model {
             WHERE email = :email";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':email', $this->__get('email'));
+        $stmt->bindValue(':email', $this->__get('email'));
         $stmt->execute();
 
         $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -156,6 +156,7 @@ class Usuario extends Model {
             $dados = array();
             $dados['chave'] = sha1($usuario['id'] . $usuario['senha']);
             $dados['nome_usuario'] = $usuario['nome'];
+            
             return $dados;
         }
     }

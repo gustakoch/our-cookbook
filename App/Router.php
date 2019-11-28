@@ -86,8 +86,8 @@ class Router extends Bootstrap {
             'controller' => 'AppController',
             'action' => 'updateStatusUsuario'
         );
-        $routes['buscar_receita_por_id'] = array(
-            'route' => '/buscar_receita_por_id',
+        $routes['buscarreceitaporid'] = array(
+            'route' => '/buscarreceitaporid',
             'controller' => 'AppController',
             'action' => 'buscarReceitaPorId'
         );

@@ -23,7 +23,7 @@ class AuthController extends Action {
 
             $this->lembrarSenha();
 
-            sleep(2);
+            sleep(1);
             header('Location: /admin');
         } else {
             header('Location: /?email=' . $usuario->__get('email') . '&error');

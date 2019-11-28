@@ -37,6 +37,9 @@
             $('#alterar-senha').click(function() {
                 $(this).html('<i class="fas fa-spinner"></i> Alterando senha... aguarde!');
             });
+            $('#recuperar-senha').click(function() {
+                $(this).html('<i class="fas fa-spinner"></i> Recuperando... aguarde!');
+            });
         });
 
         function favoritarReceita() {

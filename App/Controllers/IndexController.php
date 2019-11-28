@@ -12,6 +12,8 @@ class IndexController extends Action {
     }
 
     public function pageCriarConta() {
+        error_reporting(~E_NOTICE);
+
         $this->render('criarconta', 'Layout');
     }
 
@@ -30,7 +32,7 @@ class IndexController extends Action {
     }
 
     public function recuperarSenha() {
-        error_reporting(~E_WARNING && ~E_NOTICE);
+        // error_reporting(~E_WARNING && ~E_NOTICE);
 
         $usuario = Container::getModel('Usuario');
         $usuario->__set('email', $_POST['email']);
@@ -44,7 +46,7 @@ class IndexController extends Action {
             );
 
             $this->render('recuperacao_senha', 'Layout');
-        } else if (count($dados) <= 0) {
+        } else if ($dados == null) {
             $this->dados->email = array(
                 'email' => $_POST['email'],
                 'msg' => 'O e-mail informado não existe! Verifique os dados e tente novamente.'

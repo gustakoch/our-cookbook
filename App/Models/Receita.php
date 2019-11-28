@@ -49,17 +49,17 @@ class Receita extends Model {
 
     public function salvarReceita() {
         $sql = "INSERT INTO receitas
-            (id_usuario, nome_receita, descricao, nome_imagem, ingredientes, modo_de_fazer, usuario_favoritou)
+            (id_usuario, nome_receita, descricao, nome_imagem, ingredientes, modo_de_fazer)
             VALUES
-            (:id_usuario, :nome_receita, :descricao, :nome_imagem, :ingredientes, :modo_de_fazer, '0')";
+            (:id_usuario, :nome_receita, :descricao, :nome_imagem, :ingredientes, :modo_de_fazer)";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':id_usuario', $this->__get('id_usuario'));
-        $stmt->bindParam(':nome_receita', $this->__get('nome_receita'));
-        $stmt->bindParam(':descricao', $this->__get('descricao'));
-        $stmt->bindParam(':nome_imagem', $this->__get('nome_imagem'));
-        $stmt->bindParam(':ingredientes', $this->__get('ingredientes'));
-        $stmt->bindParam(':modo_de_fazer', $this->__get('modo_de_fazer'));
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->bindValue(':nome_receita', $this->__get('nome_receita'));
+        $stmt->bindValue(':descricao', $this->__get('descricao'));
+        $stmt->bindValue(':nome_imagem', $this->__get('nome_imagem'));
+        $stmt->bindValue(':ingredientes', $this->__get('ingredientes'));
+        $stmt->bindValue(':modo_de_fazer', $this->__get('modo_de_fazer'));
         $stmt->execute();
 
         return true;
@@ -76,14 +76,14 @@ class Receita extends Model {
             ORDER BY r.cadastrado_em DESC";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam('id_usuario', $this->__get('id_usuario'));
+        $stmt->bindValue('id_usuario', $this->__get('id_usuario'));
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function cincoUltimasReceitasCadastradas() {
-        $sql = "SELECT r.id as id_receita, r.nome_receita, r.descricao, r.nome_imagem, r.ingredientes, r.modo_de_fazer, r.usuario_favoritou, u.nome,
+        $sql = "SELECT r.id as id_receita, r.nome_receita, r.descricao, r.nome_imagem, r.ingredientes, r.modo_de_fazer, u.nome,
             DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastro
             FROM receitas as r
             INNER JOIN usuarios as u ON (u.id = r.id_usuario)
@@ -103,7 +103,7 @@ class Receita extends Model {
             WHERE r.id = :id";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':id', $this->__get('id'));
+        $stmt->bindValue(':id', $this->__get('id'));
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -126,7 +126,7 @@ class Receita extends Model {
 
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam('busca', $busca);
-        $stmt->bindParam('id_usuario', $this->__get('id_usuario'));
+        $stmt->bindValue('id_usuario', $this->__get('id_usuario'));
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

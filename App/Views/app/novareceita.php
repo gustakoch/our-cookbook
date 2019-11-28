@@ -75,10 +75,10 @@
                 <input class="file-chooser" id="imagem" name="imagem" type="file" accept="image/*" hidden>
 
                 <label for="nome_receita"><strong>Nome da receita:</strong></label>
-                <input class="form-inputs" type="text" value="<?= $this->dados->dados_receita['nome_receita'] ?>" name="nome_receita" id="nome_receita" placeholder="Digite o nome da receita">
+                <input class="form-inputs" type="text" value="<?php if (isset($this->dados->dados_receita['nome_receita'])){ echo $this->dados->dados_receita['nome_receita']; } ?>" name="nome_receita" id="nome_receita" placeholder="Digite o nome da receita">
 
                 <label for="descricao" style="margin-top:10px;"><strong>Descrição da receita:</strong></label>
-                <textarea class="form-inputs" name="descricao" id="descricao" rows="3" placeholder="Breve descrição da receita" maxlength="120"><?= $this->dados->dados_receita['descricao'] ?></textarea>
+                <textarea class="form-inputs" name="descricao" id="descricao" rows="3" placeholder="Breve descrição da receita" maxlength="120"><?php if (isset($this->dados->dados_receita['nome_receita'])){ echo $this->dados->dados_receita['descricao']; } ?></textarea>
 
                 <label for="ingredientes" style="margin-top:10px;"><strong>Check In de ingredientes:</strong></label>
                 <ul class="lista-ingredientes">
@@ -100,7 +100,7 @@
 
                 </ul>
                 <label for="mododefazer"><strong>Modo de fazer:</strong></label>
-                <textarea class="form-inputs" name="modo_de_fazer" id="modo_de_fazer" rows="12" placeholder="Descreva aqui o modo de fazer"><?= $this->dados->dados_receita['modo_de_fazer'] ?></textarea>
+                <textarea class="form-inputs" name="modo_de_fazer" id="modo_de_fazer" rows="12" placeholder="Descreva aqui o modo de fazer"><?php if (isset($this->dados->dados_receita['nome_receita'])){ echo $this->dados->dados_receita['modo_de_fazer']; } ?></textarea>
                 <button id="salvar" class="btn-custom" type="submit">Salvar &raquo;</button>
             </form>
         </div>

@@ -16,8 +16,6 @@ class AppController extends Action {
     }
 
     public function permissaoDeAdmin() {
-        session_start();
-
         if ($_SESSION['permissao'] != 'admin') {
             header('Location: /admin');
         }
@@ -177,6 +175,7 @@ class AppController extends Action {
 
     public function cadastroNovaReceita() {
         session_start();
+        
         $receita = Container::getModel('Receita');
         $validacao = $receita->validarCadastroDeReceitas();
 
@@ -200,13 +199,16 @@ class AppController extends Action {
             $ingrediente = Container::getModel('Ingrediente');
             $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
 
+            $ingredientes = isset($_POST['ingredientes']) ? $_POST['ingredientes'] : array();
+
             $this->dados->dados_receita = array(
                 'msg' => $validacao['msg'],
                 'nome_receita' => $_POST['nome_receita'],
                 'descricao' => substr($_POST['descricao'], 0, 120),
-                'ingredientes' => $_POST['ingredientes'],
+                'ingredientes' => $ingredientes,
                 'modo_de_fazer' => $_POST['modo_de_fazer']
             );
+
             $this->render('novareceita', 'Layout');
         }
     }
@@ -266,7 +268,7 @@ class AppController extends Action {
             $this->dados->usuarios = $usuario->todosOsUsuarios();
             $this->dados->msg = "Senha alterada com sucesso!";
 
-            sleep(2);
+            sleep(1);
             $this->render('admin_senhas', 'Layout');
         } else {
             $this->dados->usuarios = $usuario->todosOsUsuarios();

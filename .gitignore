@@ -4,3 +4,4 @@ uploads/*
 logs/*
 !logs/.gitkeep
 sendgrid.envsendgrid.env
+App/ConnectionDatabase.php
