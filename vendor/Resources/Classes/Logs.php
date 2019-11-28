@@ -4,6 +4,7 @@ namespace Resources\Classes;
 
 class Logs {
     public static function setTimezone() {
+        // date_default_timezone_set('America/Sao_Paulo');
         date_default_timezone_set('America/Recife'); // SEM HORÁRIO DE VERÃO
     }
 
@@ -18,14 +19,14 @@ class Logs {
         return $ip;
     }
 
-    public static function register($log_type, $message, $error = "Não informado") {
+    public static function register($user = null, $log_type, $message) {
         self::setTimezone();
 
         $hour = date('H:i:s');
         $date = date('d-m-Y');
         $ip = self::getUserIpAddr();
 
-        $save_message = "[$hour][" . mb_strtoupper($log_type) . "][$ip] > $message " . "Erro: $error \r\n";
+        $save_message = "[$hour][" . mb_strtoupper($log_type) . "][$ip][$user] > $message \r\n";
         $file = "logs/" . mb_strtolower($log_type) . "-" . $date . ".log";
         $handle = fopen("$file", "a+b");
 

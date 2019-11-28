@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Resources\Classes\Bcrypt;
+use Resources\Classes\Logs;
 use Resources\Controller\Action;
 use Resources\Model\Container;
 
@@ -77,6 +78,7 @@ class AppController extends Action {
 
     public function adminSenhas() {
         $this->autenticaUsuario();
+        $this->permissaoDeAdmin();
 
         $usuario = Container::getModel('Usuario');
 
@@ -108,33 +110,18 @@ class AppController extends Action {
         $ingrediente->__set('ingrediente', ucfirst(mb_strtolower($_POST['ingrediente'])));
 
         if (!$ingrediente->validacaoDeCampos()) {
+            Logs::register('error', 'Erro de validação para cadastro de novo ingrediente!');
+
             header('Location: /ingredientes?error');
         } else {
             $ingrediente->cadastrarIngrediente();
+            Logs::register('success', 'Novo ingrediente cadastrado!');
+
             header('Location: /ingredientes?ok');
         }
     }
 
-    public function nomeImagem() {
-        $pasta = "/var/www/html/uploads/temp/";
-
-        $fotos = glob($pasta . "{*.jpg,*.JPG,*.jpeg,*.JPEG,*.png,*.PNG}", GLOB_BRACE);
-
-        // Pegar o data da modificação de cada foto
-        $datas_mod = array();
-        foreach ($fotos as $i => $foto) {
-            $datas_mod[$i] = filemtime($foto);
-        }
-
-        arsort($datas_mod);
-
-        $uf = key($datas_mod);
-
-        $ultima_foto = $fotos[$uf];
-
-        return $ultima_foto;
-    }
-
+    // EM DESUSO NO MOMENTO
     public function removerImagensTemp() {
         $pasta = "/var/www/html/uploads/temp/";
 
@@ -193,6 +180,7 @@ class AppController extends Action {
 
             $this->uploadImagem();
             $receita->salvarReceita();
+            Logs::register('success', 'Nova receita cadastrada!');
 
             header('Location: /novareceita?ok');
         } else {
@@ -209,6 +197,7 @@ class AppController extends Action {
                 'modo_de_fazer' => $_POST['modo_de_fazer']
             );
 
+            Logs::register('error', $validacao['msg']);
             $this->render('novareceita', 'Layout');
         }
     }

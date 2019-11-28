@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Resources\Classes\Logs;
 use Resources\Controller\Action;
 use Resources\Model\Container;
 
@@ -23,9 +24,11 @@ class AuthController extends Action {
 
             $this->lembrarSenha();
 
+            Logs::register($_POST['email'], 'success', 'Usuário conectou na aplicação!');
             sleep(1);
             header('Location: /admin');
         } else {
+            Logs::register($_POST['email'], 'error', 'Usuário e ou senha inválidos no login!');
             header('Location: /?email=' . $usuario->__get('email') . '&error');
         }
     }

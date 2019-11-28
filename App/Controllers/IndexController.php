@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 use Resources\Classes\Bcrypt;
+use Resources\Classes\Logs;
 use Resources\Controller\Action;
 use Resources\Model\Container;
 
@@ -16,8 +17,6 @@ class IndexController extends Action {
     }
 
     public function pageCriarConta() {
-        // error_reporting(~E_NOTICE);
-
         $this->render('criarconta', 'Layout');
     }
 
@@ -58,6 +57,8 @@ class IndexController extends Action {
         } else {
             $this->enviarEmailRecuperacaoSenha($dados['chave'], $_POST['email'], $dados['nome_usuario']);
             $this->dados->msg = "Verifique seu e-mail!";
+
+            Logs::register(null, 'success', 'Script de envio de e-mail de recuperação enviado!');
 
             $this->render('recuperacao_senha', 'Layout');
         }
@@ -108,7 +109,10 @@ class IndexController extends Action {
             $mail->AltBody = 'Prezado(a)...';
 
             $mail->send();
+
         } catch (Exception $e) {
+            Logs::register(null, 'error', 'Erro ao enviar o e-mail de recuperação de senha!');
+
             echo "A mensagem não pode ser enviada! Error: {$mail->ErrorInfo}";
         }
         
@@ -134,6 +138,7 @@ class IndexController extends Action {
                 $usuario->alterarSenhaNoBD($id_usuario);
                 $this->dados->msg_ok = "Senha alterada com sucesso!";
 
+                Logs::register($_POST['email'], 'success', 'Senha alterada com sucesso!');
                 $this->render('alteracao_senha', 'Layout');
 
             } else {
@@ -142,6 +147,7 @@ class IndexController extends Action {
                     'msg' => "Usuário não encontrado! Verifique os dados e tente novamente."
                 );
 
+                Logs::register($_POST['email'], 'error', 'Usuário não encontrado para troca de senha!');
                 $this->render('alteracao_senha', 'Layout');
             }
 
@@ -153,12 +159,13 @@ class IndexController extends Action {
                 'msg'   => $validacao['msg']
             );
 
+            Logs::register($_POST['email'], 'error', $validacao['msg']);
             $this->render('alteracao_senha', 'Layout');
         }
     }
 
     public function criarNovaConta() {
-        session_start();
+        // session_start();
 
         $usuario = Container::getModel('Usuario');
 
@@ -174,6 +181,7 @@ class IndexController extends Action {
             if (!$usuario_existente['ok']) {
                 $usuario->criarUsuario();
 
+                Logs::register($_POST['email'], 'success', 'Usuário novo criado!');
                 header('Location: /criarconta?ok');
             } else {
                 $this->dados->erro_validacao = array(
@@ -192,6 +200,7 @@ class IndexController extends Action {
                 'senha' => $_POST['senha']
             );
 
+            Logs::register($_POST['email'], 'error', $validacao['msg']);
             $this->render('criarconta', 'Layout');
         }
     }
