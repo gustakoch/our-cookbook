@@ -66,12 +66,11 @@
             <?php } ?>
 
             <form id="form-alteracao-senha" action="/alterarsenhausuario" method="post">
-                <label for="id_usuario"><strong>Usuário:</strong></label>
+                <label for="id_usuario"><strong>E-mail do usuário:</strong></label>
 
                 <select class="form-inputs" name="id_usuario" id="id_usuario">
                     <?php foreach ($this->dados->usuarios as $usuario) { ?>
-                        <option value="<?= $usuario['id']; ?>" <?php if ($this->dados->validacao['id'] == $usuario['id']) { echo 'selected="selected"'; } ?>><?= $usuario['nome'] ?></option>
-
+                        <option value="<?= $usuario['id']; ?>" <?php if ($this->dados->validacao['id'] == $usuario['id']) { echo 'selected="selected"'; } ?>><?= $usuario['email'] ?></option>
                     <?php } ?>
                 </select>
 
