@@ -58,7 +58,7 @@ class IndexController extends Action {
             $this->enviarEmailRecuperacaoSenha($dados['chave'], $_POST['email'], $dados['nome_usuario']);
             $this->dados->msg = "Verifique seu e-mail!";
 
-            Logs::register(null, 'success', 'Script de envio de e-mail de recuperação enviado!');
+            Logs::register($_POST['email'], 'success', 'Script de envio de e-mail de recuperação enviado!');
 
             $this->render('recuperacao_senha', 'Layout');
         }
@@ -111,7 +111,7 @@ class IndexController extends Action {
             $mail->send();
 
         } catch (Exception $e) {
-            Logs::register(null, 'error', 'Erro ao enviar o e-mail de recuperação de senha!');
+            Logs::register($email_envio, 'error', 'Erro ao enviar o e-mail de recuperação de senha!');
 
             echo "A mensagem não pode ser enviada! Error: {$mail->ErrorInfo}";
         }
