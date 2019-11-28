@@ -2,8 +2,7 @@
   "name": "cookbook",
   "description": "App de cadastro de receitas",
   "require": {
-    "php": ">= 7.0",
-    "sendgrid/sendgrid": "~7"
+    "php": ">= 7.0"
   },
   "authors": [
     {
