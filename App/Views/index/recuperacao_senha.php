@@ -9,7 +9,7 @@
     <?php if (isset($this->dados->msg)) { ?>
         <img src="../../../assets/images/img-email.png" width="40" style="margin-bottom:0px;">
         <span class="animated heartBeat ok-message"><?= $this->dados->msg; ?></span>
-        <small class="animated bouce text-success" style="margin-bottom:10px;">Instruções de redefinição da sua senha foram encaminhadas para o seu email.</small>
+        <small class="animated bouce text-success" style="margin-bottom:10px;">Instruções de redefinição da sua senha foram <br> encaminhadas para o seu email.</small>
     <?php } ?>
 
     <form action="/recuperarsenha" method="post">
