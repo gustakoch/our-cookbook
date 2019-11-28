@@ -16,7 +16,7 @@ class IndexController extends Action {
     }
 
     public function pageCriarConta() {
-        error_reporting(~E_NOTICE);
+        // error_reporting(~E_NOTICE);
 
         $this->render('criarconta', 'Layout');
     }
@@ -36,8 +36,6 @@ class IndexController extends Action {
     }
 
     public function recuperarSenha() {
-        // error_reporting(~E_WARNING && ~E_NOTICE);
-
         $usuario = Container::getModel('Usuario');
         $usuario->__set('email', $_POST['email']);
 
@@ -46,14 +44,14 @@ class IndexController extends Action {
         if (strlen($_POST['email']) <= 0) {
             $this->dados->email = array(
                 'email' => $_POST['email'],
-                'msg' => 'Por favor, informe o seu e-mail de recuperação.'
+                'msg'   => 'Por favor, informe o seu e-mail de recuperação.'
             );
 
             $this->render('recuperacao_senha', 'Layout');
         } else if ($dados == null) {
             $this->dados->email = array(
                 'email' => $_POST['email'],
-                'msg' => 'O e-mail informado não existe! Verifique os dados e tente novamente.'
+                'msg'   => 'O e-mail informado não existe! Verifique os dados e tente novamente.'
             );
 
             $this->render('recuperacao_senha', 'Layout');
@@ -111,7 +109,7 @@ class IndexController extends Action {
 
             $mail->send();
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "A mensagem não pode ser enviada! Error: {$mail->ErrorInfo}";
         }
         
     }
@@ -152,14 +150,16 @@ class IndexController extends Action {
             $this->dados->validacao = array(
                 'email' => $_POST['email'],
                 'senha' => $_POST['senha'],
-                'msg' => $validacao['msg']
+                'msg'   => $validacao['msg']
             );
+
             $this->render('alteracao_senha', 'Layout');
         }
     }
 
     public function criarNovaConta() {
         session_start();
+
         $usuario = Container::getModel('Usuario');
 
         $usuario->__set('nome', $_POST['nome']);
@@ -173,22 +173,25 @@ class IndexController extends Action {
 
             if (!$usuario_existente['ok']) {
                 $usuario->criarUsuario();
+
                 header('Location: /criarconta?ok');
             } else {
                 $this->dados->erro_validacao = array(
-                    'msg' => $usuario_existente['msg'],
-                    'nome' => $usuario->__get('nome'),
+                    'msg'   => $usuario_existente['msg'],
+                    'nome'  => $usuario->__get('nome'),
                     'email' => $usuario->__get('email')
                 );
+
                 $this->render('criarconta', 'Layout');
             }
         } else {
             $this->dados->erro_validacao = array(
-                'msg' => $validacao['msg'],
-                'nome' => $usuario->__get('nome'),
+                'msg'   => $validacao['msg'],
+                'nome'  => $usuario->__get('nome'),
                 'email' => $usuario->__get('email'),
                 'senha' => $_POST['senha']
             );
+
             $this->render('criarconta', 'Layout');
         }
     }

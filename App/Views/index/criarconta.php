@@ -12,11 +12,11 @@
     <?php } ?>
 
     <form action="/criarnovaconta" method="post">
-        <input type="text" value="<?= $this->dados->erro_validacao['nome']; ?>" name="nome" id="nome" placeholder="Seu nome completo">
-        <input type="email" value="<?= $this->dados->erro_validacao['email']; ?>" name="email" id="email" placeholder="Seu melhor e-mail">
+        <input type="text" value="<?php if (isset($this->dados->erro_validacao['nome'])){ echo $this->dados->erro_validacao['nome']; } ?>" name="nome" id="nome" placeholder="Seu nome completo">
+        <input type="email" value="<?php if (isset($this->dados->erro_validacao['email'])){ echo $this->dados->erro_validacao['email']; } ?>" name="email" id="email" placeholder="Seu melhor e-mail">
 
         <div class="show-hide-password">
-            <input type="password" value="<?= $this->dados->erro_validacao['senha']; ?>" name="senha" id="senha" placeholder="Sua senha secreta">
+            <input type="password" value="<?php if (isset($this->dados->erro_validacao['senha'])){ echo $this->dados->erro_validacao['senha']; } ?>" name="senha" id="senha" placeholder="Sua senha secreta">
             <button id="btn-password" type="button" title="Mostrar/ocultar senha"><i class="fas fa-eye"></i></button>
         </div>
         <small id="txtcapslock" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
@@ -27,16 +27,10 @@
         </div>
         <small id="txtcapslock2" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
 
-        <button class="btn-custom" id="criarconta" type="submit">Criar conta &raquo;</button>
+        <button class="btn-custom" id="registrarse" type="submit">Registrar-se &raquo;</button>
 
         <div class="info">
             <span>Já possui uma conta? <a href="/">Fazer login</a></span>
         </div>
     </form>
 </div>
-
-<script>
-    $('#criarconta').click(function() {
-        $(this).html('<i class="fas fa-spinner"></i> Criando conta...');
-    });
-</script>

@@ -26,19 +26,22 @@
     <script>
         $(function() {
             $('#login').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Carregando aplicação...');
+                $(this).html('<i class="fas fa-spinner"></i> Carregando aplicação... aguarde!');
             });
             $('#adicionar-ingrediente').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Adicionando ingrediente...');
+                $(this).html('<i class="fas fa-spinner"></i> Adicionando... aguarde!');
             });
             $('#salvar-receita').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Salvando receita...');
+                $(this).html('<i class="fas fa-spinner"></i> Salvando receita... aguarde!');
             });
             $('#alterar-senha').click(function() {
                 $(this).html('<i class="fas fa-spinner"></i> Alterando senha... aguarde!');
             });
             $('#recuperar-senha').click(function() {
                 $(this).html('<i class="fas fa-spinner"></i> Recuperando... aguarde!');
+            });
+            $('#registrarse').click(function() {
+                $(this).html('<i class="fas fa-spinner"></i> Registrando... aguarde!');
             });
         });
 
