@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use Resources\Classes\Bcrypt;
 use Resources\Controller\Action;
 use Resources\Model\Container;
@@ -62,15 +66,8 @@ class IndexController extends Action {
     }
 
     public function enviarEmailRecuperacaoSenha($chave, $email_envio, $nome) {
-        $email = new \SendGrid\Mail\Mail();
-
-        $email->setFrom("site@gtech.epizy.com", "Our Cookbook");
-        $email->setSubject("Alteração de senha");
-        $email->addTo($email_envio);
-        $email->addContent("text/plain", "Olá, parece que vocẽ solicitou...");
-        $email->addContent(
-            "text/html",
-            "<h3>Prezado(a) {$nome},</h3>
+        $html = "
+            <h3>Prezado(a) {$nome},</h3>
             <p>
                 Parece que você solicitou a recuperação da sua senha de acesso ao sistema do Cookbook.<br>
                 Clique no link abaixo para recadastrar a sua senha:<br>
@@ -88,16 +85,35 @@ class IndexController extends Action {
                 Atenciosamente,<br>
                 Our Cookbook | Todos os direitos reservados.<br>
                 gtech.epizy.com
-            </p>"
-        );
+            </p>
+        ";
 
-        $sendgrid = new \SendGrid('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');
+        $mail = new PHPMailer(true);
 
         try {
-            $response = $sendgrid->send($email);
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.sendgrid.net';       
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'apikey';
+            $mail->Password   = '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';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+            $mail->CharSet = 'UTF-8';
+
+            $mail->setFrom('site@gtech.epizy.com', 'Our Cookbook');
+            $mail->addAddress($email_envio);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Alteração de senha';
+            $mail->Body    = $html;
+            $mail->AltBody = 'Prezado(a)...';
+
+            $mail->send();
         } catch (Exception $e) {
-            echo 'Erro ao enviar o e-mail: ' . $e->getMessage() . "\n";
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
+        
     }
 
     public function cadastrarNovaSenha() {

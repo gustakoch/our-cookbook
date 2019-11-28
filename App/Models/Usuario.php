@@ -167,7 +167,7 @@ class Usuario extends Model {
             WHERE email = :email";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':email', $this->__get('email'));
+        $stmt->bindValue(':email', $this->__get('email'));
         $stmt->execute();
 
         $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -187,7 +187,7 @@ class Usuario extends Model {
             WHERE id = :id_usuario";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindParam(':senha', $this->__get('senha'));
+        $stmt->bindValue(':senha', $this->__get('senha'));
         $stmt->bindParam(':id_usuario', $id_usuario);
         $stmt->execute();
     }

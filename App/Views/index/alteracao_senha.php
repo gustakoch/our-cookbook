@@ -14,9 +14,9 @@
     <form action="/cadastrarnovasenha" method="post">
         <input type="hidden" name="chave" value="<?= $this->dados->chave ?>">
 
-        <input type="email" name="email" id="email" value="<?= $this->dados->validacao['email']; ?>" placeholder="Seu e-mail de cadastro">
+        <input type="email" name="email" id="email" value="<?php if (isset($this->dados->validacao['email'])){ echo $this->dados->validacao['email']; } ?>" placeholder="Seu e-mail de cadastro">
         <div class="show-hide-password">
-            <input type="password" value="<?= $this->dados->validacao['senha']; ?>" name="senha" id="senha" placeholder="Sua nova senha secreta">
+            <input type="password" value="<?php if (isset($this->dados->validacao['email'])){ echo $this->dados->validacao['senha']; } ?>" name="senha" id="senha" placeholder="Sua nova senha secreta">
             <button id="btn-password" type="button" title="Mostrar/ocultar senha"><i class="fas fa-eye"></i></button>
         </div>
         <small id="txtcapslock" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
@@ -27,7 +27,7 @@
         </div>
         <small id="txtcapslock2" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
 
-        <button class="btn-custom" id="login" type="submit">Alterar senha &raquo;</button>
+        <button class="btn-custom" id="alterar-senha" type="submit">Alterar senha &raquo;</button>
     </form>
 
     <div class="links-recuperacao alteracao-de-senha">
