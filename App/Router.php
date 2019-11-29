@@ -121,6 +121,11 @@ class Router extends Bootstrap {
             'controller' => 'AppController',
             'action' => 'alterarSenhaUsuario'
         );
+        $routes['receitasfavoritas'] = array(
+            'route' => '/receitasfavoritas',
+            'controller' => 'AppController',
+            'action' => 'receitasFavoritas'
+        );
 
         $this->setRoutes($routes);
     }

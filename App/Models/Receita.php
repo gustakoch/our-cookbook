@@ -82,6 +82,24 @@ class Receita extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function favoritosPorUsuario() {
+        $sql = "SELECT r.id, r.descricao, r.ingredientes, r.modo_de_fazer, r.nome_imagem, r.nome_receita, u.nome,
+            DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastrado, f.id as id_favorito
+            FROM receitas r
+            INNER JOIN usuarios u
+                ON (u.id = r.id_usuario)
+            LEFT JOIN favoritos f
+                ON (r.id = f.id_receita and f.id_usuario = :id_usuario)
+            WHERE f.id IS NOT NULL
+            ORDER BY r.cadastrado_em DESC";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindValue('id_usuario', $this->__get('id_usuario'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function cincoUltimasReceitasCadastradas() {
         $sql = "SELECT r.id as id_receita, r.nome_receita, r.descricao, r.nome_imagem, r.ingredientes, r.modo_de_fazer, u.nome,
             DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastro

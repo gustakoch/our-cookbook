@@ -43,7 +43,7 @@
 </div>
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-xl navbar-dark">
         <div class="container">
             <a class="navbar-brand d-flex" href="/admin">
                 <img src="../../../assets/images/logo.png" width="50">
@@ -64,6 +64,9 @@
                     </li>
                     <li class="navbar-item">
                         <a class="nav-link" href="/receitas"><i class="fas fa-book"></i> Todas as receitas</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/receitasfavoritas"><i class="fas fa-heart"></i> Favoritos</a>
                     </li>
                     <li class="navbar-item divided"></li>
                     <li class="nav-item dropdown">
@@ -147,67 +150,3 @@
         <span>© 2019 | Todos os direitos reservados.</span>
     </div>
 </footer>
-
-<script>
-    $(document).ready(function() {
-        $('.img-receita').click(function(e) {
-            e.preventDefault();
-
-            let idReceita = $(this).attr('id');
-
-            // VERIFICAR POSSIBILIDADE DE FAZER SOMENTE UMA REQ PARA TRAZER TODOS OS INGREDIENTES
-            // E NÃO PARA CADA CLIQUE EM CADA RECEITA!!!
-
-            $.ajax({
-                type: "post",
-                url: "/buscarreceitaporid",
-                dataType: 'json',
-                data: {
-                    id: idReceita
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Oops...',
-                        text: 'Não foi possível recuperar as informações',
-                        confirmButtonText: 'Fechar',
-                        footer: 'Erro: ' + error
-                    })
-                    console.log(status, error);
-                },
-                success: function(result) {
-                    const dados = result.dados_receita[0];
-                    const todosIngredientes = result.todos_ingredientes;
-
-                    $('#main-modal').modal('show');
-
-                    const partes = dados.cadastrado_em.split(' ');
-                    const data = partes[0].split('-');
-                    const dataCompleta = `${data[2]}/${data[1]}/${data[0]}`;
-                    const hora = partes[1].split(':');
-                    const horaAbreviada = `${hora[0]}:${hora[1]}`;
-
-                    const ingredientes = dados.ingredientes.split(',');
-
-                    $('#lista-ingredientes').html('');
-                    todosIngredientes.forEach(function(item) {
-                        if (ingredientes.includes(item.id)) {
-                            li = $('<li>');
-                            $(li).appendTo('#lista-ingredientes');
-                            $(li).append(`<i class="fas fa-angle-right"></i> ${item.ingrediente}`);
-                        }
-                    });
-
-                    $('.modal-title').html(dados.nome_receita);
-                    $('#img-receita-modal').attr('src', '../../uploads/' + dados.nome_imagem);
-                    $('#publicacao-receita').html(`Publicado em ${dataCompleta} às ${horaAbreviada}`);
-                    $('#criacao-receita').html(`Criado por ${dados.nome}`);
-
-                    let modoDeFazer = dados.modo_de_fazer.split('\n').join('<br />');
-                    $('#modo-de-preparo').html(modoDeFazer);
-
-                }
-            });
-        });
-    });
-</script>

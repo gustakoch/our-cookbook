@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-xl navbar-dark">
         <div class="container">
             <a class="navbar-brand d-flex" href="/admin">
                 <img src="../../../assets/images/logo.png" width="50">
@@ -20,6 +20,9 @@
                     </li>
                     <li class="navbar-item">
                         <a class="nav-link" href="/receitas"><i class="fas fa-book"></i> Todas as receitas</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/receitasfavoritas"><i class="fas fa-heart"></i> Favoritos</a>
                     </li>
                     <li class="navbar-item divided"></li>
                     <li class="nav-item dropdown">

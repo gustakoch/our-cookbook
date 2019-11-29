@@ -87,6 +87,17 @@ class AppController extends Action {
         $this->render('admin_senhas', 'Layout');
     }
 
+    public function receitasFavoritas() {
+        $this->autenticaUsuario();
+
+        $receita = Container::getModel('Receita');
+        $receita->__set('id_usuario', $_SESSION['id']);
+
+        $this->dados->receitas = $receita->favoritosPorUsuario();
+
+        $this->render('receitas_favoritas', 'Layout');
+    }
+
     public function updateStatusUsuario() {
         $usuario = Container::getModel('Usuario');
 
