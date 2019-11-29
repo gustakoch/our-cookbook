@@ -84,7 +84,6 @@ class AppController extends Action {
 
         $this->dados->usuarios = $usuario->todosOsUsuarios();
 
-        error_reporting(~E_NOTICE);
         $this->render('admin_senhas', 'Layout');
     }
 
@@ -110,12 +109,12 @@ class AppController extends Action {
         $ingrediente->__set('ingrediente', ucfirst(mb_strtolower($_POST['ingrediente'])));
 
         if (!$ingrediente->validacaoDeCampos()) {
-            Logs::register('error', 'Erro de validação para cadastro de novo ingrediente!');
+            Logs::register($_SESSION['nome'], 'error', 'Não passou da validação de campos!');
 
             header('Location: /ingredientes?error');
         } else {
             $ingrediente->cadastrarIngrediente();
-            Logs::register('success', 'Novo ingrediente cadastrado!');
+            Logs::register($_SESSION['nome'], 'success', 'Novo ingrediente cadastrado!');
 
             header('Location: /ingredientes?ok');
         }
@@ -162,7 +161,7 @@ class AppController extends Action {
 
     public function cadastroNovaReceita() {
         session_start();
-        
+
         $receita = Container::getModel('Receita');
         $validacao = $receita->validarCadastroDeReceitas();
 
@@ -180,7 +179,7 @@ class AppController extends Action {
 
             $this->uploadImagem();
             $receita->salvarReceita();
-            Logs::register('success', 'Nova receita cadastrada!');
+            Logs::register($_SESSION['nome'], 'success', 'Nova receita cadastrada!');
 
             header('Location: /novareceita?ok');
         } else {
@@ -196,8 +195,8 @@ class AppController extends Action {
                 'ingredientes' => $ingredientes,
                 'modo_de_fazer' => $_POST['modo_de_fazer']
             );
+            Logs::register($_SESSION['nome'], 'error', $validacao['msg']);
 
-            Logs::register('error', $validacao['msg']);
             $this->render('novareceita', 'Layout');
         }
     }
@@ -257,6 +256,8 @@ class AppController extends Action {
             $this->dados->usuarios = $usuario->todosOsUsuarios();
             $this->dados->msg = "Senha alterada com sucesso!";
 
+            Logs::register($_SESSION['nome'], 'success', 'Alterou a senha do usuário de id ' . $_POST['id_usuario']);
+
             sleep(1);
             $this->render('admin_senhas', 'Layout');
         } else {
@@ -266,6 +267,7 @@ class AppController extends Action {
                 'msg' => $validacao['msg'],
                 'nova_senha' => $_POST['nova_senha']
             );
+            Logs::register($_SESSION['nome'], 'error', 'Erro ao alterar senha do usuário de id '.$_POST['id_usuario'].'. Erro: ' . $validacao['msg']);
 
             $this->render('admin_senhas', 'Layout');
         }

@@ -2,10 +2,10 @@
 
 namespace App;
 
-define('HOST', 'localhost');
+define('HOST', 'mysqldb');
 define('DB_NAME', 'cookbook');
-define('USER', 'root');
-define('PASSWORD', '');
+define('USER', 'dev');
+define('PASSWORD', 'dev');
 
 class ConnectionDatabase {
     public static function getDatabase() {
