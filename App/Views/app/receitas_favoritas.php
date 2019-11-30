@@ -150,13 +150,3 @@
         <span>© 2019 | Todos os direitos reservados.</span>
     </div>
 </footer>
-
-<script>
-    $(document).ready(function(e) {
-        $('.refresh-fav').click(function(e) {
-            e.preventDefault();
-            location.reload();
-        });
-    });
-
-</script>

@@ -43,6 +43,11 @@
             $('#registrarse').click(function() {
                 $(this).html('<i class="fas fa-spinner"></i> Registrando... aguarde!');
             });
+
+            $('.refresh-fav').click(function(e) {
+                e.preventDefault();
+                location.reload();
+            });
         });
 
         function carregarModal() {
@@ -101,7 +106,6 @@
 
                         let modoDeFazer = dados.modo_de_fazer.split('\n').join('<br />');
                         $('#modo-de-preparo').html(modoDeFazer);
-
                     }
                 });
             });
