@@ -3,3 +3,4 @@ uploads/*
 !uploads/.gitkeep
 logs/*
 !logs/.gitkeep
+App/Connection.php
