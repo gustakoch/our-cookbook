@@ -1,13 +1,12 @@
 <?php
- 
+
 namespace Resources\Model;
 
-use App\ConnectionDatabase;
+use App\Connection;
 
 class Container {
     public static function getModel($model) {
-
-        $conn = ConnectionDatabase::getDatabase();
+        $conn = Connection::getDatabase();
         $class = "\\App\\Models\\" . ucfirst($model);
 
         return new $class($conn);

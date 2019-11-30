@@ -3,4 +3,3 @@ uploads/*
 !uploads/.gitkeep
 logs/*
 !logs/.gitkeep
-App/ConnectionDatabase.php
