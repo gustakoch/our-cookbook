@@ -24,7 +24,7 @@ class Mensagem extends Model {
 
     public function todasAsMensagens() {
         $sql = "SELECT id, nome, email, telefone, assunto, mensagem, lido,
-            DATE_FORMAT(enviado_em, '%d/%m/%Y \à\s %H:%i:%s') as data_enviado
+            DATE_FORMAT(enviado_em, '%d/%m/%Y \à\s %H:%i') as data_enviado
             FROM mensagens
             ORDER BY enviado_em DESC";
 

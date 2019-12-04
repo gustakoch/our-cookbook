@@ -12,7 +12,9 @@
                                 <i class="fas fa-envelope"></i>
                                 <div class="autor-assunto">
                                     <span>Por <?= $mensagem['nome']; ?></span>
-                                    <a href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $mensagem['assunto']; ?></strong></a>
+
+                                    <?php $assunto = substr($mensagem['assunto'], 0, 38) . "..."; ?>
+                                    <a href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $assunto; ?></strong></a>
                                 </div>
                             </div>
                             <div class="data-envio">
@@ -37,7 +39,9 @@
                                 <i class="far fa-envelope-open icon-lido"></i>
                                 <div class="autor-assunto">
                                     <span class="nome-autor">Por <?= $mensagem['nome']; ?></span>
-                                    <a class="link-lida" href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $mensagem['assunto']; ?></strong></a>
+
+                                    <?php $assunto = substr($mensagem['assunto'], 0, 38) . "..."; ?>
+                                    <a class="link-lida" href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $assunto; ?></strong></a>
                                 </div>
                             </div>
                             <div class="data-envio">

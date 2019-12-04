@@ -506,6 +506,13 @@ textarea { font-size: 14px; }
     .mensagens .icon-autor-assunto i {
         font-size: 30px;
     }
+
+    .mensagens .icon-autor-assunto a {
+        margin-top: -5px;
+    }
+    .mensagens .autor-assunto .link-lida {
+        margin-top: -5px;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
