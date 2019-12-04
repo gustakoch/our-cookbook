@@ -21,6 +21,92 @@
 
 <body>
 
+    <?php if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") { ?>
+        <header>
+            <nav class="navbar navbar-expand-xl navbar-dark">
+                <div class="container">
+                    <a class="navbar-brand d-flex" href="/admin">
+                        <img src="../../../assets/images/logo.png" width="50">
+                        <div style="margin-left:10px; display:flex; flex-direction:column;">
+                            <strong style="margin-top:3px;">Our CookBook</strong>
+                            <small style="font-size:14px;">Olá, <?php echo $_SESSION['nome'] ?>!</small>
+                        </div>
+                    </a>
+
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#main-menu">
+                        <i class="fas fa-bars text-white"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="main-menu">
+                        <ul class="navbar-nav ml-auto menu-mobile">
+                            <li class="navbar-item">
+                                <a class="nav-link" href="/admin"><i class="fas fa-home"></i> Home</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="/receitas"><i class="fas fa-book"></i> Receitas</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="/receitasfavoritas"><i class="fas fa-heart"></i> Favoritos</a>
+                            </li>
+                            <li class="navbar-item divided"></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-plus"></i> Cadastros
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="/ingredientes">Ingredientes</a>
+                                    <a class="dropdown-item" href="/novareceita">Receitas</a>
+                                </div>
+                            </li>
+
+                            <?php if ($_SESSION['permissao'] == 'admin') { ?>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cog"></i> Configurações
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="/adminsenhas">Alteração de senha</a>
+                                        <a class="dropdown-item" href="/mensagens">Mensagens recebidas</a>
+                                        <a class="dropdown-item" href="/usuarios">Usuários ativos</a>
+                                    </div>
+                                </li>
+                            <?php } ?>
+
+                            <li class="navbar-item divided"></li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="/contato"><i class="fas fa-paper-plane"></i> Contato</a>
+                            </li>
+
+                            <li class="navbar-item">
+                                <a class="nav-link" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    <?php } else { ?>
+        <?php if ($_SERVER['REQUEST_URI'] == "/contato" || $_SERVER['REQUEST_URI'] == "/novamensagem") { ?>
+            <header>
+                <nav class="navbar navbar-expand-xl navbar-dark">
+                    <div class="container">
+                        <a class="navbar-brand d-flex" href="/admin">
+                            <img src="../../../assets/images/logo.png" width="50">
+                            <div style="margin-left:10px; display:flex; flex-direction:column;">
+                                <strong style="margin-top:3px;">Our CookBook</strong>
+                                <small style="font-size:14px;">Olá, Convidado!</small>
+                            </div>
+                        </a>
+
+                        <button class="navbar-toggler" data-toggle="collapse" data-target="#main-menu">
+                            <i class="fas fa-bars text-white"></i>
+                        </button>
+                    </div>
+                </nav>
+            </header>
+        <?php } ?>
+    <?php } ?>
+
     <?php $this->content(); ?>
 
     <script>
@@ -40,8 +126,8 @@
             $('#recuperar-senha').click(function() {
                 $(this).html('<i class="fas fa-spinner"></i> Recuperando... aguarde!');
             });
-            $('#registrarse').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Registrando... aguarde!');
+            $('#enviar-mensagem').click(function() {
+                $(this).html('<i class="fas fa-spinner"></i> Enviando mensagem... aguarde!');
             });
 
             $('.refresh-fav').click(function(e) {
@@ -55,9 +141,6 @@
                 e.preventDefault();
 
                 let idReceita = $(this).attr('id');
-
-                // VERIFICAR POSSIBILIDADE DE FAZER SOMENTE UMA REQ PARA TRAZER TODOS OS INGREDIENTES
-                // E NÃO PARA CADA CLIQUE EM CADA RECEITA!!!
 
                 $.ajax({
                     type: "post",

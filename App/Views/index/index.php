@@ -29,8 +29,9 @@
 
         <button class="btn-custom" id="login" type="submit">Login &raquo;</button>
 
-        <div class="info">
-            <span>Não possui conta? <a href="/criarconta">Registrar-se</a></span>
+        <div class="info text-center">
+            <span>Não possui conta? <a href="/criarconta">Registrar-se.</a></span><br>
+            <span>Problemas, dúvidas ou sugestões? <a href="/contato">Entre em contato.</a></span>
         </div>
     </form>
 </div>

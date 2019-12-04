@@ -34,6 +34,16 @@ class IndexController extends Action {
         $this->render('alteracao_senha', 'Layout');
     }
 
+    public function contato() {
+        session_start();
+        $usuario = Container::getModel('Usuario');
+        $usuario->__set('id', $_SESSION['id']);
+
+        $this->dados->usuario = $usuario->procuraUsuarioPorId();
+
+        $this->render('form_contato', 'Layout');
+    }
+
     public function recuperarSenha() {
         $usuario = Container::getModel('Usuario');
         $usuario->__set('email', $_POST['email']);
@@ -92,7 +102,7 @@ class IndexController extends Action {
         try {
             // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
-            $mail->Host       = 'smtp.sendgrid.net';       
+            $mail->Host       = 'smtp.sendgrid.net';
             $mail->SMTPAuth   = true;
             $mail->Username   = 'apikey';
             $mail->Password   = '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';
@@ -115,7 +125,6 @@ class IndexController extends Action {
 
             echo "A mensagem não pode ser enviada! Error: {$mail->ErrorInfo}";
         }
-        
     }
 
     public function cadastrarNovaSenha() {
@@ -165,8 +174,6 @@ class IndexController extends Action {
     }
 
     public function criarNovaConta() {
-        // session_start();
-
         $usuario = Container::getModel('Usuario');
 
         $usuario->__set('nome', $_POST['nome']);
@@ -202,6 +209,43 @@ class IndexController extends Action {
 
             Logs::register($_POST['email'], 'error', $validacao['msg']);
             $this->render('criarconta', 'Layout');
+        }
+    }
+
+    public function novaMensagem() {
+        $mensagem = Container::getModel('Mensagem');
+        $mensagem->__set('nome', ucwords(mb_strtolower($_POST['nome'])));
+        $mensagem->__set('email', mb_strtolower($_POST['email']));
+        $mensagem->__set('telefone', $_POST['telefone']);
+        $mensagem->__set('assunto', $_POST['assunto']);
+        $mensagem->__set('mensagem', $_POST['mensagem']);
+
+        session_start();
+        if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") {
+            $mensagem->__set('usuario', $_SESSION['id']);
+        } else {
+            $mensagem->__set('usuario', "Convidado");
+        }
+
+        $validacao = $mensagem->validacaoDeCampos();
+
+        if ($validacao['ok']) {
+            $mensagem->salvarMensagem();
+            $this->dados->msg = "Sua mensagem foi enviada com sucesso!";
+
+            sleep(1);
+            $this->render('form_contato', 'Layout');
+        } else {
+            $this->dados->validacao = array(
+                'msg' => $validacao['msg'],
+                'nome' => $mensagem->__get('nome'),
+                'email' => $mensagem->__get('email'),
+                'telefone' => $mensagem->__get('telefone'),
+                'assunto' => $mensagem->__get('assunto'),
+                'mensagem' => $mensagem->__get('mensagem')
+            );
+
+            $this->render('form_contato', 'Layout');
         }
     }
 }

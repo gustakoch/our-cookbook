@@ -126,6 +126,21 @@ class Router extends Bootstrap {
             'controller' => 'AppController',
             'action' => 'receitasFavoritas'
         );
+        $routes['contato'] = array(
+            'route' => '/contato',
+            'controller' => 'IndexController',
+            'action' => 'contato'
+        );
+        $routes['novamensagem'] = array(
+            'route' => '/novamensagem',
+            'controller' => 'IndexController',
+            'action' => 'novaMensagem'
+        );
+        $routes['mensagens'] = array(
+            'route' => '/mensagens',
+            'controller' => 'AppController',
+            'action' => 'mensagens'
+        );
 
         $this->setRoutes($routes);
     }

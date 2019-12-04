@@ -29,7 +29,7 @@
 
         <button class="btn-custom" id="registrarse" type="submit">Registrar-se &raquo;</button>
 
-        <div class="info">
+        <div class="info text-center">
             <span>Já possui uma conta? <a href="/">Fazer login</a></span>
         </div>
     </form>

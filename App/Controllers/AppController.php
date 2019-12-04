@@ -98,6 +98,20 @@ class AppController extends Action {
         $this->render('receitas_favoritas', 'Layout');
     }
 
+    public function mensagens() {
+        $this->autenticaUsuario();
+        $this->permissaoDeAdmin();
+
+        $mensagem = Container::getModel('Mensagem');
+        $this->dados->todas_mensagens = $mensagem->todasAsMensagens();
+        $this->dados->mensagens = array(
+            'nao_lidas' => $mensagem->mensagensNaoLidas(),
+            'lidas' => $mensagem->mensagensLidas()
+        );
+
+        $this->render('mensagens', 'Layout');
+    }
+
     public function updateStatusUsuario() {
         $usuario = Container::getModel('Usuario');
 
@@ -283,4 +297,6 @@ class AppController extends Action {
             $this->render('admin_senhas', 'Layout');
         }
     }
+
+
 }

@@ -156,7 +156,7 @@ class Usuario extends Model {
             $dados = array();
             $dados['chave'] = sha1($usuario['id'] . $usuario['senha']);
             $dados['nome_usuario'] = $usuario['nome'];
-            
+
             return $dados;
         }
     }
@@ -214,6 +214,18 @@ class Usuario extends Model {
         }
 
         return $results;
+    }
+
+    public function procuraUsuarioPorId() {
+        $sql = "SELECT nome, email
+            FROM usuarios
+            WHERE id = :id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':id', $this->__get('id'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function todosOsUsuarios() {
