@@ -22,6 +22,19 @@ class Mensagem extends Model {
         $this->$atributo = $valor;
     }
 
+    public function getMensagemById() {
+        $sql = "SELECT id, nome, email, telefone, assunto, mensagem,
+            DATE_FORMAT(enviado_em, '%d/%m/%Y \à\s %H:%i') as data_enviado
+            FROM mensagens
+            WHERE id = :id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindValue('id', $this->__get('id'));
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function todasAsMensagens() {
         $sql = "SELECT id, nome, email, telefone, assunto, mensagem, lido,
             DATE_FORMAT(enviado_em, '%d/%m/%Y \à\s %H:%i') as data_enviado
@@ -101,5 +114,26 @@ class Mensagem extends Model {
         $stmt->execute();
     }
 
+    public function verificaStatusMensagem() {
+        $sql = "SELECT lido
+            FROM mensagens
+            WHERE id = :id";
 
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindValue('id', $this->__get('id'));
+        $stmt->execute();
+
+        $mensagem = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $mensagem['lido'];
+    }
+
+    public function atualizaStatusLido() {
+        $sql = "UPDATE mensagens
+            SET lido = 1
+            WHERE id = :id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindValue('id', $this->__get('id'));
+        $stmt->execute();
+    }
 }

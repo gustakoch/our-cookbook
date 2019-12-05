@@ -27,9 +27,3 @@
         <a href="/receitas" class="btn-custom" data-dismiss="modal">Todas as receitas &raquo;</a>
     </div>
 </section>
-
-<footer class="fixed-bottom">
-    <div class="main-footer">
-        <span>© 2019 | Todos os direitos reservados.</span>
-    </div>
-</footer>

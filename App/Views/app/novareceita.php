@@ -54,32 +54,20 @@
     </div>
 </section>
 
-<footer class="fixed-bottom">
-    <div class="main-footer">
-        <span>© 2019 | Todos os direitos reservados.</span>
-    </div>
-</footer>
-
 <script>
     $(document).ready(function() {
+        const previewImg = document.querySelector('.preview-img');
+        const fileChooser = document.querySelector('.file-chooser');
 
-        $('#salvar').click(function() {
-            $(this).html('<i class="fas fa-spinner"></i> Salvando receita...');
-        });
+        fileChooser.onchange = e => {
+            const fileToUpload = e.target.files.item(0);
+            const reader = new FileReader();
 
+            reader.onload = e => previewImg.src = e.target.result;
+            reader.readAsDataURL(fileToUpload);
+
+            const imageLoaded = document.querySelector('.preview-img');
+            imageLoaded.classList.add('img-loaded');
+        };
     });
-
-    const previewImg = document.querySelector('.preview-img');
-    const fileChooser = document.querySelector('.file-chooser');
-
-    fileChooser.onchange = e => {
-        const fileToUpload = e.target.files.item(0);
-        const reader = new FileReader();
-
-        reader.onload = e => previewImg.src = e.target.result;
-        reader.readAsDataURL(fileToUpload);
-
-        const imageLoaded = document.querySelector('.preview-img');
-        imageLoaded.classList.add('img-loaded');
-    };
 </script>

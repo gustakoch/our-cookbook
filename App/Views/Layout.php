@@ -14,6 +14,7 @@
     <link rel="icon" href="../../assets/images/logo.png">
     <script src="../../assets/js/sweetalert2.all.min.js"></script>
     <script src="../../assets/js/jQuery-3.4.1.js"></script>
+    <script src="../../assets/js/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Our CookBook</title>
@@ -90,7 +91,7 @@
             <header>
                 <nav class="navbar navbar-expand-xl navbar-dark">
                     <div class="container">
-                        <a class="navbar-brand d-flex" href="/admin">
+                        <a class="navbar-brand d-flex" href="/">
                             <img src="../../../assets/images/logo.png" width="50">
                             <div style="margin-left:10px; display:flex; flex-direction:column;">
                                 <strong style="margin-top:3px;">Our CookBook</strong>
@@ -109,8 +110,19 @@
 
     <?php $this->content(); ?>
 
+    <?php if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") { ?>
+        <footer class="fixed-bottom">
+            <div class="main-footer">
+                <span>© 2019 | Todos os direitos reservados.</span>
+            </div>
+        </footer>
+    <?php } ?>
+
     <script>
         $(function() {
+            $('#salvar').click(function() {
+                $(this).html('<i class="fas fa-spinner"></i> Salvando receita...');
+            });
             $('#login').click(function() {
                 $(this).html('<i class="fas fa-spinner"></i> Carregando aplicação... aguarde!');
             });
@@ -134,6 +146,8 @@
                 e.preventDefault();
                 location.reload();
             });
+
+            $('#telefone').mask('(00) 00009-0000');
         });
 
         function carregarModal() {

@@ -22,7 +22,7 @@
                 <input class="form-inputs" type="text" name="telefone" id="telefone" value="<?php if (isset($this->dados->validacao)) { echo $this->dados->validacao['telefone']; } ?>" placeholder="Digite seu número de telefone (opcional)">
 
                 <label for="assunto"><strong>Assunto: *</strong></label>
-                <input class="form-inputs" type="text" name="assunto" id="assunto" value="<?php if (isset($this->dados->validacao)) { echo $this->dados->validacao['assunto']; } ?>" placeholder="Digite o assunto" maxlength="200">
+                <input class="form-inputs" type="text" name="assunto" id="assunto" value="<?php if (isset($this->dados->validacao)) { echo $this->dados->validacao['assunto']; } ?>" placeholder="Digite o assunto" maxlength="60" >
 
                 <label for="mensagem"><strong>Mensagem: *</strong></label>
                 <textarea class="form-inputs" name="mensagem" id="mensagem" rows="7" placeholder="Digite aqui a sua mensagem"><?php if (isset($this->dados->validacao)) { echo $this->dados->validacao['mensagem']; } ?></textarea>
@@ -38,9 +38,3 @@
         </div>
     </div>
 </section>
-
-<footer class="fixed-bottom">
-    <div class="main-footer">
-        <span>© 2019 | Todos os direitos reservados</span>
-    </div>
-</footer>

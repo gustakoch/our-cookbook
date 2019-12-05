@@ -32,12 +32,6 @@
     </div>
 </section>
 
-<footer class="fixed-bottom">
-    <div class="main-footer">
-        <span>© 2019 | Todos os direitos reservados.</span>
-    </div>
-</footer>
-
 <script>
     $(function() {
         const elements = $('.onoffelement');

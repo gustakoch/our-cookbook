@@ -1,7 +1,6 @@
 <?php
- 
-namespace Resources\Init;
 
+namespace Resources\Init;
 abstract class Bootstrap {
     private $routes;
 

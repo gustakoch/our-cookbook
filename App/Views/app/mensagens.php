@@ -1,6 +1,6 @@
 <section class="content">
     <div class="col-md-12 d-flex justify-content-center mt-3">
-        <div class="nova-receita mensagens" style="max-width:500px;">
+        <div class="nova-receita mensagens" style="max-width:700px;">
             <h4>Mensagens recebidas</h4>
 
             <h6>Não lidas (<?= $this->dados->mensagens['nao_lidas']; ?>)</h6>
@@ -13,8 +13,8 @@
                                 <div class="autor-assunto">
                                     <span>Por <?= $mensagem['nome']; ?></span>
 
-                                    <?php $assunto = substr($mensagem['assunto'], 0, 38) . "..."; ?>
-                                    <a href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $assunto; ?></strong></a>
+                                    <?php $assunto = substr($mensagem['assunto'], 0, 35) . "..."; ?>
+                                    <a class="link-assunto-mensagem" id="<?= $mensagem['id']; ?>" href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $assunto; ?></strong></a>
                                 </div>
                             </div>
                             <div class="data-envio">
@@ -40,8 +40,8 @@
                                 <div class="autor-assunto">
                                     <span class="nome-autor">Por <?= $mensagem['nome']; ?></span>
 
-                                    <?php $assunto = substr($mensagem['assunto'], 0, 38) . "..."; ?>
-                                    <a class="link-lida" href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $assunto; ?></strong></a>
+                                    <?php $assunto = substr($mensagem['assunto'], 0, 35) . "..."; ?>
+                                    <a class="link-assunto-mensagem link-lida" id="<?= $mensagem['id']; ?>" href="/mensagem?id=<?= $mensagem['id']; ?>"><strong><?= $assunto; ?></strong></a>
                                 </div>
                             </div>
                             <div class="data-envio">
@@ -58,9 +58,3 @@
         </div>
     </div>
 </section>
-
-<footer class="fixed-bottom">
-    <div class="main-footer">
-        <span>© 2019 | Todos os direitos reservados.</span>
-    </div>
-</footer>

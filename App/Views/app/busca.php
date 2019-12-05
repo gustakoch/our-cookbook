@@ -1,4 +1,3 @@
-
 <!-- Modal -->
 <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -97,21 +96,12 @@
     </div>
 </section>
 
-<footer class="fixed-bottom">
-    <div class="main-footer">
-        <span>© 2019 | Todos os direitos reservados.</span>
-    </div>
-</footer>
-
 <script>
     $(document).ready(function() {
         $('.img-receita').click(function(e) {
             e.preventDefault();
 
             let idReceita = $(this).attr('id');
-
-            // VERIFICAR POSSIBILIDADE DE FAZER SOMENTE UMA REQ PARA TRAZER TODOS OS INGREDIENTES
-            // E NÃO PARA CADA CLIQUE EM CADA RECEITA!!!
 
             $.ajax({
                 type: "POST",
@@ -164,11 +154,5 @@
                 }
             });
         });
-
-        $('#favorito').click(function(e) {
-            e.preventDefault();
-
-        });
-
     });
 </script>

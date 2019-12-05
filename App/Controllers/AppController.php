@@ -112,6 +112,28 @@ class AppController extends Action {
         $this->render('mensagens', 'Layout');
     }
 
+    public function mensagem() {
+        $this->autenticaUsuario();
+        $this->permissaoDeAdmin();
+
+        if (!isset($_GET['id']) || $_GET['id'] == "") {
+            header('Location: /mensagens');
+        }
+
+        $mensagem = Container::getModel('Mensagem');
+        $mensagem->__set('id', $_GET['id']);
+
+        $this->dados->mensagem = $mensagem->getMensagemById();
+
+        $status_lido = $mensagem->verificaStatusMensagem();
+
+        if ($status_lido == 0) {
+            $mensagem->atualizaStatusLido();
+        }
+
+        $this->render('mensagem', 'Layout');
+    }
+
     public function updateStatusUsuario() {
         $usuario = Container::getModel('Usuario');
 
@@ -297,6 +319,5 @@ class AppController extends Action {
             $this->render('admin_senhas', 'Layout');
         }
     }
-
 
 }

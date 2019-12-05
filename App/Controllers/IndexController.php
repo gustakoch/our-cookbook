@@ -217,7 +217,7 @@ class IndexController extends Action {
         $mensagem->__set('nome', ucwords(mb_strtolower($_POST['nome'])));
         $mensagem->__set('email', mb_strtolower($_POST['email']));
         $mensagem->__set('telefone', $_POST['telefone']);
-        $mensagem->__set('assunto', $_POST['assunto']);
+        $mensagem->__set('assunto', substr($_POST['assunto'], 0, 60));
         $mensagem->__set('mensagem', $_POST['mensagem']);
 
         session_start();
