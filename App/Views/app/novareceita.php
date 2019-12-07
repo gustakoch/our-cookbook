@@ -47,27 +47,13 @@
                 </ul>
                 <label for="mododefazer"><strong>Modo de fazer:</strong></label>
                 <textarea class="form-inputs" name="modo_de_fazer" id="modo_de_fazer" rows="12" placeholder="Descreva aqui o modo de fazer"><?php if (isset($this->dados->dados_receita['nome_receita'])){ echo $this->dados->dados_receita['modo_de_fazer']; } ?></textarea>
-                <button id="salvar" class="btn-custom" type="submit">Salvar &raquo;</button>
+
+                <button class="btn-custom load-button" id="salvar" type="submit">
+                    <span class="spinner-border-sm"></span>
+                    <span class="loading">Salvar &raquo;</span>
+                </button>
             </form>
         </div>
 
     </div>
 </section>
-
-<script>
-    $(document).ready(function() {
-        const previewImg = document.querySelector('.preview-img');
-        const fileChooser = document.querySelector('.file-chooser');
-
-        fileChooser.onchange = e => {
-            const fileToUpload = e.target.files.item(0);
-            const reader = new FileReader();
-
-            reader.onload = e => previewImg.src = e.target.result;
-            reader.readAsDataURL(fileToUpload);
-
-            const imageLoaded = document.querySelector('.preview-img');
-            imageLoaded.classList.add('img-loaded');
-        };
-    });
-</script>

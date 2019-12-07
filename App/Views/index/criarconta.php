@@ -27,10 +27,13 @@
         </div>
         <small id="txtcapslock2" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
 
-        <button class="btn-custom" id="registrarse" type="submit">Registrar-se &raquo;</button>
+        <button class="btn-custom load-button" id="registrarse" type="submit">
+            <span class="spinner-border-sm"></span>
+            <span class="loading">Registrar-se &raquo;</span>
+        </button>
 
         <div class="info text-center">
-            <span>Já possui uma conta? <a href="/">Fazer login</a></span>
+            <span>Já possui uma conta? <a href="/">Fazer login.</a></span>
         </div>
     </form>
 </div>

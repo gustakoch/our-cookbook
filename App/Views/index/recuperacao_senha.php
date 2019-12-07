@@ -14,7 +14,10 @@
 
     <form action="/recuperarsenha" method="post">
         <input type="email" name="email" id="email" value="<?php if (isset($this->dados->email)) { echo $this->dados->email['email']; } ?>" placeholder="Seu e-mail de recuperação">
-        <button class="btn-custom" id="recuperar-senha" type="submit">Recuperar &raquo;</button>
+        <button class="btn-custom load-button" id="recuperar-senha" type="submit">
+            <span class="spinner-border-sm"></span>
+            <span class="loading">Recuperar &raquo;</span>
+        </button>
     </form>
 
    <div class="links-recuperacao alteracao-de-senha">

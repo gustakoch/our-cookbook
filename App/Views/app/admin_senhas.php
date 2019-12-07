@@ -26,7 +26,10 @@
                 <label for="confirmar_senha"><strong>Confirme a nova senha:</strong></label>
                 <input class="form-inputs" type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Confirme a nova senha">
 
-                <button id="alterar-senha" class="btn-custom" type="submit">Alterar senha &raquo;</button>
+                <button class="btn-custom load-button" id="alterar-senha" type="submit">
+                    <span class="spinner-border-sm"></span>
+                    <span class="loading">Alterar senha &raquo;</span>
+                </button>
             </form>
 
         </div>

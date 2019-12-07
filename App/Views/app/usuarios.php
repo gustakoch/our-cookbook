@@ -31,34 +31,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    $(function() {
-        const elements = $('.onoffelement');
-
-        elements.map((index, element) => {
-            if (element.value == '1') {
-                $(element).prop('checked', true);
-            } else if (element.value == '0') {
-                $(element).prop('checked', false);
-            }
-
-            $('#' + element.id).change(function(e) {
-                $.ajax({
-                    type: "POST",
-                    url: "/update_status_usuario",
-                    data: {
-                        id: element.id,
-                        status: element.value
-                    },
-                    success: function(result) {
-                        //console.log(result);
-                    },
-                    error: function(xhr, status, error) {
-                        //console.log(status, error);
-                    }
-                });
-            });
-        });
-    });
-</script>

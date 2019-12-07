@@ -27,7 +27,10 @@
         </div>
         <small id="txtcapslock2" style="display:none;">ATENÇÃO! A tecla CapLock está ativada!</small>
 
-        <button class="btn-custom" id="alterar-senha" type="submit">Alterar senha &raquo;</button>
+        <button class="btn-custom load-button" id="alterar-senha" type="submit">
+            <span class="spinner-border-sm"></span>
+            <span class="loading">Alterar senha &raquo;</span>
+        </button>
     </form>
 
     <div class="links-recuperacao alteracao-de-senha">

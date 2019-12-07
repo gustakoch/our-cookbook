@@ -56,7 +56,10 @@
             <form action="/resultados" method="get">
                 <div class="box-pesquisa">
                     <input type="text" name="busca" id="busca" placeholder="Pesquisar receita..." value="<?php if (isset($_GET['busca'])) { echo $_GET['busca']; } ?>">
-                    <button type="submit">Buscar</button>
+                    <button class="load-button-busca" type="submit">
+                        <span class="spinner-border-sm"></span>
+                        <span class="loading">Buscar</span>
+                    </button>
                 </div>
             </form>
             </form>

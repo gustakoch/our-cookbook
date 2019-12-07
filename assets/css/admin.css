@@ -3,8 +3,17 @@
 /* Admin page
 *********************************************/
 
+/* Menu principal
+*********************************************/
+
+.dropdown-item:hover {
+    background-color: #f45000;
+    color: #fff;
+}
+
+
 .content {
-    margin-bottom: 95px;
+    margin-bottom: 25px;
 }
 
 header {

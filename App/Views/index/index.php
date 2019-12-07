@@ -27,7 +27,10 @@
             </div>
         </div>
 
-        <button class="btn-custom" id="login" type="submit">Login &raquo;</button>
+        <button class="btn-custom load-button" id="login" type="submit">
+            <span class="spinner-border-sm"></span>
+            <span class="loading">Login &raquo;</span>
+        </button>
 
         <div class="info text-center">
             <span>Não possui conta? <a href="/criarconta">Registrar-se.</a></span><br>

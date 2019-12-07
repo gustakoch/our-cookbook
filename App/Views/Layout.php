@@ -22,6 +22,50 @@
 
 <body>
 
+    <!-- Modal -->
+    <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border:0;">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Nome da receita</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <img id="img-receita-modal" src="" alt="Imagem da receita">
+                    <div class="conteudo-receita">
+                        <small id="publicacao-receita">Publicado em </small>
+                        <small id="criacao-receita">Criado por </small>
+
+                        <h6>Ingredientes</h6>
+                        <ul id="lista-ingredientes"></ul>
+
+                        <h6>Modo de preparo</h6>
+                        <span id="modo-de-preparo"></span>
+
+                        <div class="icones-receita">
+                            <div class="icons porcoes">
+                                <img src="../../../assets/images/icon-porcoes.png" width="25">
+                                <span>Rende ??? porções</span>
+                            </div>
+                            <div class="icons tempo-preparo">
+                                <img src="../../../assets/images/icon-timer.png" width="25">
+                                <span>Tempo aprox. ???</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="border:0;">
+                    <button type="button" class="btn btn-block" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") { ?>
         <header>
             <nav class="navbar navbar-expand-xl navbar-dark">
@@ -111,35 +155,26 @@
     <?php $this->content(); ?>
 
     <?php if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") { ?>
-        <footer class="fixed-bottom">
+        <!-- <footer>
             <div class="main-footer">
                 <span>© 2019 | Todos os direitos reservados.</span>
             </div>
-        </footer>
+        </footer> -->
     <?php } ?>
 
     <script>
         $(function() {
-            $('#salvar').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Salvando receita...');
+            $('.load-button').click(function() {
+                let spinner = $(this).children('.spinner-border-sm');
+                let button = $(this).children('.loading');
+                $(button).html('Processando... aguarde!');
+                $(spinner).addClass('spinner-border');
             });
-            $('#login').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Carregando aplicação... aguarde!');
-            });
-            $('#adicionar-ingrediente').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Adicionando... aguarde!');
-            });
-            $('#salvar-receita').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Salvando receita... aguarde!');
-            });
-            $('#alterar-senha').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Alterando senha... aguarde!');
-            });
-            $('#recuperar-senha').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Recuperando... aguarde!');
-            });
-            $('#enviar-mensagem').click(function() {
-                $(this).html('<i class="fas fa-spinner"></i> Enviando mensagem... aguarde!');
+            $('.load-button-busca').click(function() {
+                let spinner = $(this).children('.spinner-border-sm');
+                let button = $(this).children('.loading');
+                $(button).html('Buscando...');
+                $(spinner).addClass('spinner-border');
             });
 
             $('.refresh-fav').click(function(e) {
@@ -208,6 +243,35 @@
             });
         }
 
+        function alteraStatusUsuario() {
+            const elements = $('.onoffelement');
+
+            elements.map((index, element) => {
+                if (element.value == '1') {
+                    $(element).prop('checked', true);
+                } else if (element.value == '0') {
+                    $(element).prop('checked', false);
+                }
+
+                $('#' + element.id).change(function(e) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/update_status_usuario",
+                        data: {
+                            id: element.id,
+                            status: element.value
+                        },
+                        success: function(result) {
+                            //
+                        },
+                        error: function(xhr, status, error) {
+                            //
+                        }
+                    });
+                });
+            });
+        }
+
         function favoritarReceita() {
             $('.btn-fav').click(function(e) {
                 let idReceita = $(this).attr('id');
@@ -233,6 +297,26 @@
                     }
                 });
             });
+        }
+
+        function geraPreviewImagem() {
+            const previewImg = document.querySelector('.preview-img');
+            const fileChooser = document.querySelector('.file-chooser');
+
+            if (!fileChooser) {
+                return false;
+            }
+
+            fileChooser.onchange = e => {
+                const fileToUpload = e.target.files.item(0);
+                const reader = new FileReader();
+
+                reader.onload = e => previewImg.src = e.target.result;
+                reader.readAsDataURL(fileToUpload);
+
+                const imageLoaded = document.querySelector('.preview-img');
+                imageLoaded.classList.add('img-loaded');
+            };
         }
 
         function setCapsLockMessage() {
@@ -289,6 +373,8 @@
             });
         }
 
+        alteraStatusUsuario();
+        geraPreviewImagem();
         carregarModal();
         favoritarReceita();
         showHidePasswordText();

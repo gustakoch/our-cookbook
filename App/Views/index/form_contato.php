@@ -27,7 +27,10 @@
                 <label for="mensagem"><strong>Mensagem: *</strong></label>
                 <textarea class="form-inputs" name="mensagem" id="mensagem" rows="7" placeholder="Digite aqui a sua mensagem"><?php if (isset($this->dados->validacao)) { echo $this->dados->validacao['mensagem']; } ?></textarea>
 
-                <button id="enviar-mensagem" class="btn-custom" type="submit">Enviar mensagem &raquo;</button>
+                <button class="btn-custom load-button" id="enviar-mensagem" type="submit">
+                    <span class="spinner-border-sm"></span>
+                    <span class="loading">Enviar mensagem &raquo;</span>
+                </button>
             </form>
 
             <?php if ($_SESSION['id'] == "" && $_SESSION['nome'] == "") { ?>

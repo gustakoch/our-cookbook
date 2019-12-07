@@ -12,7 +12,10 @@
                 <?php } ?>
 
                 <input class="form-inputs" type="text" name="ingrediente" id="ingrediente" placeholder="Nome do ingrediente">
-                <button id="adicionar-ingrediente" class="btn-custom" type="submit">Adicionar ingrediente &raquo;</button>
+                <button class="btn-custom load-button" id="adicionar-ingrediente" type="submit">
+                    <span class="spinner-border-sm"></span>
+                    <span class="loading">Adicionar &raquo;</span>
+                </button>
             </form>
 
             <h4 class="mt-3">Ingredientes cadastrados</h4>
