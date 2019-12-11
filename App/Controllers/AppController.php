@@ -223,6 +223,8 @@ class AppController extends Action {
             $receita->__set('nome_imagem', $nome_imagem);
             $receita->__set('ingredientes', $string_ingredientes);
             $receita->__set('modo_de_fazer', $_POST['modo_de_fazer']);
+            $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
+            $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
 
             $this->uploadImagem();
             $receita->salvarReceita();

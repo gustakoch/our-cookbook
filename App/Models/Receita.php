@@ -13,6 +13,8 @@ class Receita extends Model {
     private $ingredientes;
     private $modo_de_fazer;
     private $busca;
+    private $qtde_porcoes;
+    private $tempo_preparo;
 
     public function __get($atributo) {
         return $this->$atributo;
@@ -29,29 +31,35 @@ class Receita extends Model {
 
         if ($_FILES['imagem']['name'] == "") {
             $results['ok'] = false;
-            $results['msg'] = "Você precisa selecionar uma imagem";
+            $results['msg'] = "Você precisa selecionar uma imagem.";
         } else if (strlen($_POST['nome_receita']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Informe o nome da receita";
+            $results['msg'] = "Informe o nome da receita.";
         } else if (strlen($_POST['descricao']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Informe uma breve descrição da receita";
+            $results['msg'] = "Informe uma breve descrição da receita.";
         } else if (count($_POST['ingredientes']) == 0) {
             $results['ok'] = false;
-            $results['msg'] = "Selecione ao menos um ingrediente para a receita";
+            $results['msg'] = "Selecione ao menos um ingrediente para a receita.";
         } else if (strlen($_POST['modo_de_fazer']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Descreva o modo de fazer";
+            $results['msg'] = "Descreva o modo de fazer.";
+        } else if (strlen($_POST['qtde_porcoes']) <= 0) {
+            $results['ok'] = false;
+            $results['msg'] = "Informe a quantidade de porções.";
+        } else if (strlen($_POST['tempo_preparo']) <= 0) {
+            $results['ok'] = false;
+            $results['msg'] = "Informe a quantidade de tempo para o preparo.";
         }
 
         return $results;
     }
 
-    public function salvarReceita() {
+    public function salvarReceita(): void {
         $sql = "INSERT INTO receitas
-            (id_usuario, nome_receita, descricao, nome_imagem, ingredientes, modo_de_fazer)
+            (id_usuario, nome_receita, descricao, nome_imagem, ingredientes, modo_de_fazer, qtde_porcoes, tempo_preparo)
             VALUES
-            (:id_usuario, :nome_receita, :descricao, :nome_imagem, :ingredientes, :modo_de_fazer)";
+            (:id_usuario, :nome_receita, :descricao, :nome_imagem, :ingredientes, :modo_de_fazer, :qtde_porcoes, :tempo_preparo)";
 
         $stmt = $this->database->prepare($sql);
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
@@ -60,12 +68,12 @@ class Receita extends Model {
         $stmt->bindValue(':nome_imagem', $this->__get('nome_imagem'));
         $stmt->bindValue(':ingredientes', $this->__get('ingredientes'));
         $stmt->bindValue(':modo_de_fazer', $this->__get('modo_de_fazer'));
+        $stmt->bindValue(':qtde_porcoes', $this->__get('qtde_porcoes'));
+        $stmt->bindValue(':tempo_preparo', $this->__get('tempo_preparo'));
         $stmt->execute();
-
-        return true;
     }
 
-    public function todasAsReceitas() {
+    public function todasAsReceitas(): array {
         $sql = "SELECT r.id, r.descricao, r.ingredientes, r.modo_de_fazer, r.nome_imagem, r.nome_receita, u.nome,
             DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastrado, f.id as id_favorito
             FROM receitas r

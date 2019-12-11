@@ -48,11 +48,11 @@
                         <div class="icones-receita">
                             <div class="icons porcoes">
                                 <img src="../../../assets/images/icon-porcoes.png" width="25">
-                                <span>Rende ??? porções</span>
+                                <span id="qtde-porcoes"></span>
                             </div>
                             <div class="icons tempo-preparo">
                                 <img src="../../../assets/images/icon-timer.png" width="25">
-                                <span>Tempo aprox. ???</span>
+                                <span id="preparo"></span>
                             </div>
                         </div>
 
@@ -65,6 +65,7 @@
             </div>
         </div>
     </div>
+    <!-- Fim Modal -->
 
     <?php if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") { ?>
         <header>
@@ -238,6 +239,11 @@
 
                         let modoDeFazer = dados.modo_de_fazer.split('\n').join('<br />');
                         $('#modo-de-preparo').html(modoDeFazer);
+
+                        let porcoes = dados.qtde_porcoes > 1 ? 'porções' : 'porção';
+                        $('#qtde-porcoes').html(`Rende ${dados.qtde_porcoes} ${porcoes}`);
+
+                        $('#preparo').html(`Preparado em ${dados.tempo_preparo} minutos`);
                     }
                 });
             });

@@ -11,7 +11,6 @@
     color: #fff;
 }
 
-
 .content {
     margin-bottom: 25px;
 }
@@ -43,7 +42,6 @@ header {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* border: 1px solid red; */
     margin-top: 15px;
 }
 .ultimas-receitas h3 {
@@ -146,6 +144,30 @@ textarea { font-size: 14px; }
     width: 100%;
 }
 
+.porcoes-tempo, .porcoes {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.porcoes-tempo {
+    justify-content: space-around;
+    margin: 15px 0 5px 0;
+}
+
+.text-input-porcoes {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+.text-input-porcoes label {
+    font-size: 14px;
+    font-weight: bold;
+}
+.text-input-porcoes input {
+    max-width: 155px;
+    margin-top: -5px;
+    font-size: 13px;
+}
 
 /* Página de cadastro de ingredientes
 *********************************************/
@@ -376,7 +398,7 @@ textarea { font-size: 14px; }
     align-items: center;
 }
 .icones-receita .icons span {
-    font-size: 10px;
+    font-size: 12px;
     margin-top: 5px;
 }
 
@@ -509,6 +531,8 @@ textarea { font-size: 14px; }
     color: #f45000;
     text-decoration: none;
 }
+
+
 
 /* Media Queries
 ************************************************************/

@@ -48,6 +48,24 @@
                 <label for="mododefazer"><strong>Modo de fazer:</strong></label>
                 <textarea class="form-inputs" name="modo_de_fazer" id="modo_de_fazer" rows="12" placeholder="Descreva aqui o modo de fazer"><?php if (isset($this->dados->dados_receita['nome_receita'])){ echo $this->dados->dados_receita['modo_de_fazer']; } ?></textarea>
 
+                <div class="porcoes-tempo">
+                    <div class="porcoes">
+                        <img src="../../../assets/images/icon-porcoes.png" width="60">
+                        <div class="text-input-porcoes">
+                            <label for="qtde_porcoes">Qtde. de porções:</label>
+                            <input class="form-inputs" type="text" name="qtde_porcoes" id="qtde_porcoes" placeholder="Informe a quantidade" onfocus="(this.type='number')">
+                        </div>
+                    </div>
+
+                    <div class="porcoes">
+                        <img src="../../../assets/images/icon-timer.png" width="60">
+                        <div class="text-input-porcoes">
+                            <label for="tempo_preparo">Tempo de preparo:</label>
+                            <input class="form-inputs" type="text" name="tempo_preparo" id="tempo_preparo" placeholder="Informe em minutos" onfocus="(this.type='number')">
+                        </div>
+                    </div>
+                </div>
+
                 <button class="btn-custom load-button" id="salvar" type="submit">
                     <span class="spinner-border-sm"></span>
                     <span class="loading">Salvar &raquo;</span>
