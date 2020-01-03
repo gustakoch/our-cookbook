@@ -81,13 +81,24 @@
                                 <?php $descricao = substr($receita['descricao'], 0, 90) . " ..."; ?>
                                 <p><?= $descricao; ?></p>
                             </div>
-                            <button class="btn-fav" id="<?= $receita['id'] ?>" type="button" title="Favoritar receita">
-                                <?php if (!$receita['id_favorito']) { ?>
-                                    <i class="far fa-heart"></i>
-                                <?php } else { ?>
-                                    <i class="fas fa-heart text-danger"></i>
-                                <?php } ?>
-                            </button>
+
+                            <div class="buttons-receita">
+                                <div class="editar-excluir">
+                                    <a href="/alterar?id=<?= $receita['id']; ?>" class="btn-edicao" title="Editar receita">
+                                        <i class="fas fa-edit text-success"></i>
+                                    </a>
+                                    <button class="btn-excluir" id="<?= $receita['id']; ?>" title="Excluir receita">
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-fav" id="<?= $receita['id'] ?>" type="button" title="Favoritar receita">
+                                    <?php if (!$receita['id_favorito']) { ?>
+                                        <i class="far fa-thumbs-up fa-lg"></i>
+                                    <?php } else { ?>
+                                        <i class="fas fa-thumbs-up text-primary fa-lg"></i>
+                                    <?php } ?>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
@@ -98,64 +109,3 @@
         </div>
     </div>
 </section>
-
-<script>
-    $(document).ready(function() {
-        $('.img-receita').click(function(e) {
-            e.preventDefault();
-
-            let idReceita = $(this).attr('id');
-
-            $.ajax({
-                type: "POST",
-                url: "/buscar_receita_por_id",
-                dataType: 'JSON',
-                data: {
-                    id: idReceita
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Oops...',
-                        text: 'Não foi possível recuperar as informações',
-                        confirmButtonText: 'Fechar',
-                        footer: 'Erro: ' + error
-                    })
-                    console.log(status, error);
-                },
-                success: function(result) {
-                    const dados = result.dados_receita[0];
-                    const todosIngredientes = result.todos_ingredientes;
-
-                    $('#main-modal').modal('show');
-
-                    const partes = dados.cadastrado_em.split(' ');
-                    const data = partes[0].split('-');
-                    const dataCompleta = `${data[2]}/${data[1]}/${data[0]}`;
-                    const hora = partes[1].split(':');
-                    const horaAbreviada = `${hora[0]}:${hora[1]}`;
-
-                    const ingredientes = dados.ingredientes.split(',');
-
-                    $('#lista-ingredientes').html('');
-                    todosIngredientes.forEach(function(item) {
-                        if (ingredientes.includes(item.id)) {
-                            li = $('<li>');
-                            $(li).appendTo('#lista-ingredientes');
-                            $(li).append(`<i class="fas fa-angle-right"></i> ${item.ingrediente}`);
-                        }
-                    });
-
-                    $('.modal-title').html(dados.nome_receita);
-                    $('#img-receita-modal').attr('src', '../../uploads/' + dados.nome_imagem);
-                    $('#publicacao-receita').html(`Publicado em ${dataCompleta} às ${horaAbreviada}`);
-                    $('#criacao-receita').html(`Criado por ${dados.nome}`);
-
-                    let modoDeFazer = dados.modo_de_fazer.split('\n').join('<br />');
-                    $('#modo-de-preparo').html(modoDeFazer);
-
-                }
-            });
-        });
-    });
-</script>

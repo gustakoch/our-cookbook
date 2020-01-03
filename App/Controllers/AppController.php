@@ -322,4 +322,113 @@ class AppController extends Action {
         }
     }
 
+    public function excluir() {
+        $id_receita = preg_replace("/[^0-9]/", "", $_GET['id']);
+        session_start();
+
+        $receita = Container::getModel('Receita');
+        $receita->__set('id', $id_receita);
+        $receita->__set('id_usuario', $_SESSION['id']);
+
+        $remocao = $receita->removerReceita();
+        if ($remocao) {
+            $receita->removerFavorito();
+            echo json_encode(array(
+                'title' => 'Removida!',
+                'msg' => 'Sua receita foi removida com sucesso.'
+            ));
+        }
+    }
+
+    public function alterar() {
+        $id_receita = preg_replace("/[^0-9]/", "", $_GET['id']);
+        session_start();
+
+        $receita = Container::getModel('Receita');
+        $receita->__set('id', $id_receita);
+        $receita->__set('id_usuario', $_SESSION['id']);
+
+        $cadastrou_receita = $receita->usuarioCadastrouReceita();
+
+        if ($cadastrou_receita) {
+            $ingrediente = Container::getModel('Ingrediente');
+            $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+            $this->dados->receita = $receita->procurarReceitaPorId();
+
+            $this->render('editar_receita', 'Layout');
+        } else {
+            // Fazer alguma coisa quando o usuário não é quem cadastrou a receita.
+        }
+    }
+
+    public function atualizarReceita() {
+        $receita = Container::getModel('Receita');
+        session_start();
+
+        $id_receita = preg_replace("/[^0-9]/", "", $_POST['id']);
+
+        $descricao = substr($_POST['descricao'], 0, 120);
+        $string_ingredientes = implode(',', $_POST['ingredientes']);
+
+        $receita->__set('id', $id_receita);
+        $receita->__set('nome_receita', $_POST['nome_receita']);
+        $receita->__set('descricao', $descricao);
+        $receita->__set('ingredientes', $string_ingredientes);
+        $receita->__set('modo_de_fazer', $_POST['modo_de_fazer']);
+        $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
+        $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
+
+        $validacao = $receita->validarAtualizacaoReceita();
+
+        if (strlen($_FILES['imagem']['name']) > 0) {
+            $nome_imagem = $this->nomeImagemUpload($_FILES['imagem']['name']);
+            $receita->__set('nome_imagem', $nome_imagem);
+            $this->uploadImagem();
+        } else {
+            $nome_imagem = $receita->getStringImagem();
+            $receita->__set('nome_imagem', $nome_imagem);
+        }
+
+        if ($validacao['ok']) {
+            $receita->atualizarReceita();
+            $this->dados->msg = "Receita atualizada com sucesso!";
+            $this->dados->receitas = $receita->todasAsReceitas();
+
+            $this->render('receitas', 'Layout');
+        } else {
+            error_reporting(~E_WARNING);
+
+            $ingrediente = Container::getModel('Ingrediente');
+            $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+
+            $ingredientes = isset($_POST['ingredientes']) ? $_POST['ingredientes'] : [];
+
+            $receita = Container::getModel('Receita');
+
+            $descricao = substr($_POST['descricao'], 0, 120);
+            $string_ingredientes = implode(',', $_POST['ingredientes']);
+
+            $receita->__set('nome_receita', $_POST['nome_receita']);
+            $receita->__set('descricao', $descricao);
+            $receita->__set('ingredientes', $string_ingredientes);
+            $receita->__set('modo_de_fazer', $_POST['modo_de_fazer']);
+            $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
+            $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
+
+            $this->dados->receita = array(
+                'msg' => $validacao['msg'],
+                'id' => $_POST['id'],
+                'nome_receita' => $_POST['nome_receita'],
+                'descricao' => substr($_POST['descricao'], 0, 120),
+                'ingredientes' => $ingredientes,
+                'modo_de_fazer' => $_POST['modo_de_fazer'],
+                'qtde_porcoes' => $_POST['qtde_porcoes'],
+                'tempo_preparo' => $_POST['tempo_preparo']
+            );
+
+            $this->render('editar_receita', 'Layout');
+        }
+
+    }
+
 }

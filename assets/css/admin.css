@@ -260,7 +260,7 @@ textarea { font-size: 14px; }
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 5px;
+    /* padding: 5px; */
     transition: all 0.3s ease;
 }
 .lista-receitas:nth-child(3),
@@ -281,7 +281,7 @@ textarea { font-size: 14px; }
 
 .group-receitas {
     width: 70%;
-    margin: -2px 8px 0 8px;
+    margin: 3px 8px 0 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -302,7 +302,7 @@ textarea { font-size: 14px; }
     justify-self: end;
 }
 .group-receitas button i {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .box-pesquisa {
@@ -331,6 +331,30 @@ textarea { font-size: 14px; }
 .box-pesquisa button:hover { opacity: 0.8; }
 .box-pesquisa button:active { opacity: 1; }
 
+.buttons-receita {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.editar-excluir {
+    display: flex;
+    flex-direction: row;
+}
+
+.editar-excluir a {
+    margin-right: 5px;
+}
+.editar-excluir a:hover {
+    text-decoration: none;
+}
+
+.img-timer-porcoes {
+    height: 50px;
+    width: 50px;
+}
+
 /* Modal das receitas
 ************************************************************/
 
@@ -343,6 +367,10 @@ textarea { font-size: 14px; }
 }
 .modal-header {
     align-items: center;
+}
+
+.img-receita {
+    margin: 5px;
 }
 
 .conteudo-receita {
@@ -590,6 +618,10 @@ textarea { font-size: 14px; }
     }
     .informacoes-mensagem span {
         font-size: 13px;
+    }
+
+    .porcoes-tempo {
+        flex-direction: column;
     }
 }
 

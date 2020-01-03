@@ -26,13 +26,24 @@
                                 <?php $descricao = substr($receita['descricao'], 0, 90) . " ..."; ?>
                                 <p><?= $descricao; ?></p>
                             </div>
-                            <button class="btn-fav refresh-fav" id="<?= $receita['id'] ?>" type="button" title="Favoritar receita">
-                                <?php if (!$receita['id_favorito']) { ?>
-                                    <i class="far fa-heart"></i>
-                                <?php } else { ?>
-                                    <i class="fas fa-heart text-danger"></i>
-                                <?php } ?>
-                            </button>
+
+                            <div class="buttons-receita">
+                                <div class="editar-excluir">
+                                    <a href="/alterar?id=<?= $receita['id']; ?>" class="btn-edicao" title="Editar receita">
+                                        <i class="fas fa-edit text-success"></i>
+                                    </a>
+                                    <button class="btn-excluir" id="<?= $receita['id']; ?>" title="Excluir receita">
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-fav" id="<?= $receita['id'] ?>" type="button" title="Favoritar receita">
+                                    <?php if (!$receita['id_favorito']) { ?>
+                                        <i class="far fa-thumbs-up fa-lg"></i>
+                                    <?php } else { ?>
+                                        <i class="fas fa-thumbs-up text-primary fa-lg"></i>
+                                    <?php } ?>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
