@@ -1,35 +1,30 @@
 <section class="content">
     <div class="col-md-12 d-flex justify-content-center mt-3">
         <div class="nova-receita" style="max-width:500px;">
-            <h4>Cadastro de ingredientes</h4>
-            <form action="/novoingrediente" method="post">
+            <h4>Ingredientes cadastrados</h4>
 
-                <?php if (isset($_GET['error'])) { ?>
-                    <small class="animated bounce text-danger" style="margin-bottom:3px;">* Erro: Por favor, informe o ingrediente a ser cadastrado.</small>
-                <?php } ?>
-                <?php if (isset($_GET['ok'])) { ?>
-                    <small class="animated bounce text-success" style="margin-bottom:3px;">Ingrediente cadastrado com sucesso!</small>
-                <?php } ?>
-
-                <input class="form-inputs" type="text" name="ingrediente" id="ingrediente" placeholder="Nome do ingrediente">
-                <button class="btn-custom load-button" id="adicionar-ingrediente" type="submit">
-                    <span class="spinner-border-sm"></span>
-                    <span class="loading">Adicionar &raquo;</span>
-                </button>
-            </form>
-
-            <h4 class="mt-3">Ingredientes cadastrados</h4>
-
-            <?php if (count($this->dados->ingredientes) <= 0) { ?>
-                <em>Não há cadastros de ingredientes.</em>
+            <?php if (count($this->dados->ingredientes) > 0) { ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align: center;">#</th>
+                            <th scope="col">Nome do ingrediente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->dados->ingredientes as $ingrediente) { ?>
+                            <tr>
+                                <td style="text-align: center;"><?= $ingrediente['id']; ?></td>
+                                <td><?= $ingrediente['ingrediente']; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <span><em>Não há registros de ingredientes. </em> <i class="fas fa-frown text-danger"></i></span>
             <?php } ?>
 
-            <?php foreach ($this->dados->ingredientes as $ingrediente) { ?>
-                <ul class="ingredientes-cadastrados">
-                    <li><i class="fas fa-angle-right"></i>&nbsp; <?= $ingrediente['ingrediente'] ?></li>
-                </ul>
-            <?php } ?>
-
+            <a href="/cadastros/novoingrediente" class="btn-custom btn-ingrediente">Cadastrar novo ingrediente &raquo;</a>
         </div>
     </div>
 </section>

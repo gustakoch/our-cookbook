@@ -104,8 +104,8 @@ class IndexController extends Action {
             $mail->isSMTP();
             $mail->Host       = 'smtp.sendgrid.net';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'apikey';
-            $mail->Password   = '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';
+            $mail->Username   = getenv('USERNAME');
+            $mail->Password   = getenv('PASSWORD');
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
             $mail->CharSet = 'UTF-8';

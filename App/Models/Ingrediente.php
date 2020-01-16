@@ -18,8 +18,10 @@ class Ingrediente extends Model {
         $this->$atributo = $valor;
     }
 
-    public function todosOsIngredientes() {
-        $sql = "SELECT * FROM ingredientes ORDER BY cadastrado_em DESC";
+    public function todosOsIngredientes(): array {
+        $sql = "SELECT *
+            FROM ingredientes
+            ORDER BY cadastrado_em ASC";
 
         $stmt = $this->database->prepare($sql);
         $stmt->execute();
@@ -27,7 +29,7 @@ class Ingrediente extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function validacaoDeCampos() {
+    public function validacaoDeCampos(): bool {
         $valido = true;
 
         if (strlen(trim($this->__get('ingrediente'))) <= 0) {
@@ -38,9 +40,9 @@ class Ingrediente extends Model {
     }
 
     public function cadastrarIngrediente() {
-        $sql = "INSERT INTO ingredientes 
+        $sql = "INSERT INTO ingredientes
             (id_usuario, ingrediente, cadastrado_em)
-            VALUES 
+            VALUES
             (:id_usuario, :ingrediente, now())";
 
         $stmt = $this->database->prepare($sql);
@@ -50,5 +52,5 @@ class Ingrediente extends Model {
 
         return $this;
     }
-    
+
 }

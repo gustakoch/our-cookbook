@@ -147,6 +147,12 @@ class AppController extends Action {
         }
     }
 
+    public function cadastroNovoIngrediente() {
+        $this->autenticaUsuario();
+
+        $this->render('novoingrediente', 'Layout');
+    }
+
     public function novoIngrediente() {
         session_start();
 
@@ -158,12 +164,12 @@ class AppController extends Action {
         if (!$ingrediente->validacaoDeCampos()) {
             Logs::register($_SESSION['nome'], 'error', 'Não passou da validação de campos!');
 
-            header('Location: /ingredientes?error');
+            header('Location: /cadastros/novoingrediente?error');
         } else {
             $ingrediente->cadastrarIngrediente();
             Logs::register($_SESSION['nome'], 'success', 'Novo ingrediente cadastrado!');
 
-            header('Location: /ingredientes?ok');
+            header('Location: /cadastros/novoingrediente?ok');
         }
     }
 

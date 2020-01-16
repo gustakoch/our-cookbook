@@ -52,7 +52,7 @@
                     </div>
                 <?php } ?>
             <?php } else { ?>
-                <span><em>Não há registros nessa seção!</em> <i class="fas fa-frown text-danger"></i></span>
+                <span><em>Não há registros de receitas. </em> <i class="fas fa-frown text-danger"></i></span>
             <?php } ?>
 
         </div>

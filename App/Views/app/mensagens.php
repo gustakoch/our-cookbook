@@ -3,7 +3,9 @@
         <div class="nova-receita mensagens" style="max-width:700px;">
             <h4>Mensagens recebidas</h4>
 
-            <h6>Não lidas (<?= $this->dados->mensagens['nao_lidas']; ?>)</h6>
+            <h6 class="badge-mensagem">
+                Não lidas <small class="badge badge-light"><?= $this->dados->mensagens['nao_lidas']; ?></small>
+            </h6>
             <?php if ($this->dados->mensagens['nao_lidas'] > 0) { ?>
                 <?php foreach ($this->dados->todas_mensagens as $mensagem) { ?>
                     <?php if ($mensagem['lido'] == 0) { ?>
@@ -30,7 +32,9 @@
 
             <hr>
 
-            <h6>Lidas (<?= $this->dados->mensagens['lidas']; ?>)</h6>
+            <h6 class="badge-mensagem" style="max-width: 90px;">
+                Lidas <small class="badge badge-light"><?= $this->dados->mensagens['lidas']; ?></small>
+            </h6>
             <?php if ($this->dados->mensagens['lidas'] > 0) { ?>
                 <?php foreach ($this->dados->todas_mensagens as $mensagem) { ?>
                     <?php if ($mensagem['lido'] == 1) { ?>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +19,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Our CookBook</title>
 </head>
-
 <body>
 
     <!-- Modal -->
@@ -34,7 +32,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <img id="img-receita-modal" src="" alt="Imagem da receita">
                     <div class="conteudo-receita">
                         <small id="publicacao-receita">Publicado em </small>
@@ -56,9 +53,7 @@
                                 <span id="preparo"></span>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
                 <div class="modal-footer" style="border:0;">
                     <button type="button" class="btn btn-block" data-dismiss="modal">Fechar</button>
@@ -89,21 +84,34 @@
                             <li class="navbar-item">
                                 <a class="nav-link" href="/admin"><i class="fas fa-home"></i> Home</a>
                             </li>
-                            <li class="navbar-item">
-                                <a class="nav-link" href="/receitas"><i class="fas fa-book"></i> Receitas</a>
-                            </li>
+
                             <li class="navbar-item">
                                 <a class="nav-link" href="/receitasfavoritas"><i class="fas fa-heart"></i> Favoritos</a>
                             </li>
                             <li class="navbar-item divided"></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search"></i> Consultas
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="/ingredientes">Ingredientes cadastrados</a>
+                                    <a class="dropdown-item" href="/receitas">Todas as Receitas</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-plus"></i> Cadastros
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="/ingredientes">Ingredientes</a>
-                                    <a class="dropdown-item" href="/novareceita">Receitas</a>
+                                    <a class="dropdown-item" href="/cadastros/novoingrediente">Novo Ingrediente</a>
+                                    <a class="dropdown-item" href="/novareceita">Nova Receita</a>
                                 </div>
+                            </li>
+
+                            <li class="navbar-item divided"></li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="/contato"><i class="fas fa-paper-plane"></i> Contato</a>
                             </li>
 
                             <?php if ($_SESSION['permissao'] == 'admin') { ?>
@@ -118,11 +126,6 @@
                                     </div>
                                 </li>
                             <?php } ?>
-
-                            <li class="navbar-item divided"></li>
-                            <li class="navbar-item">
-                                <a class="nav-link" href="/contato"><i class="fas fa-paper-plane"></i> Contato</a>
-                            </li>
 
                             <li class="navbar-item">
                                 <a class="nav-link" href="/sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
@@ -164,5 +167,4 @@
         </footer> -->
     <?php } ?>
 </body>
-
 </html>

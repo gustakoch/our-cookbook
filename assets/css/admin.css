@@ -182,6 +182,14 @@ textarea { font-size: 14px; }
     padding-bottom: 3px;
 }
 
+.btn-ingrediente {
+    text-align: center;
+}
+.btn-ingrediente:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
 /* Página de configurações gerais
 *********************************************/
 .configuracoes {
@@ -452,6 +460,13 @@ textarea { font-size: 14px; }
 
 /* Página de mensagens / mensagem
 ************************************************************/
+
+.badge-mensagem {
+    max-width: 120px;
+    background-color: #f7e6de;
+    border-radius: 6px;
+    padding: 7px 12px;
+}
 
 .mensagens h4 {
     margin-bottom: 30px;

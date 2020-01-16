@@ -161,6 +161,11 @@ class Router extends Bootstrap {
             'controller' => 'AppController',
             'action' => 'atualizarReceita'
         );
+        $routes['cadastros/novoingrediente'] = array(
+            'route' => '/cadastros/novoingrediente',
+            'controller' => 'AppController',
+            'action' => 'cadastroNovoIngrediente'
+        );
 
         $this->setRoutes($routes);
     }

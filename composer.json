@@ -3,7 +3,8 @@
   "description": "App de cadastro de receitas",
   "require": {
     "php": ">= 7.0",
-    "phpmailer/phpmailer": "~6.1"
+    "phpmailer/phpmailer": "~6.1",
+    "vlucas/phpdotenv": "^4.1"
   },
   "authors": [
     {
