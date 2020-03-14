@@ -3,6 +3,13 @@
 /* Admin page
 *********************************************/
 
+/* Colors
+*********************************************/
+
+.text-gray {
+    color: #ccc;
+}
+
 /* Menu principal
 *********************************************/
 
@@ -67,6 +74,10 @@ header {
     opacity: 0.8;
 }
 .btn-home a:active { opacity: 1; }
+
+.card-img-top {
+    height: 320px;
+}
 
 /* Footer
 *********************************************/
@@ -169,6 +180,14 @@ textarea { font-size: 14px; }
     font-size: 13px;
 }
 
+.custom-ingredientes {
+    margin-bottom: 10px;
+    display: flex;
+}
+.custom-ingredientes input {
+    flex: 1;
+}
+
 /* Página de cadastro de ingredientes
 *********************************************/
 
@@ -188,6 +207,39 @@ textarea { font-size: 14px; }
 .btn-ingrediente:hover {
     text-decoration: none;
     color: #fff;
+}
+
+/* Página com a lista de ingredientes cadastrados
+*********************************************/
+
+.form-edicao-ingrediente {
+    display: flex;
+    flex-direction: row !important;
+}
+
+.form-edicao-ingrediente input {
+    flex: 1;
+}
+
+.btn-confirma-edicao-ingrediente {
+    background: #f45000;
+    padding: 5px 10px;
+    font-variant: small-caps;
+    transition: all 0.3s ease;
+    border: 0;
+    border-radius: 4px;
+    margin-left: 5px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-confirma-edicao-ingrediente:hover {
+    opacity: 0.9;
+}
+
+.btn-edicao-ingrediente {
+    border: 0;
+    background: none;
 }
 
 /* Página de configurações gerais
@@ -361,6 +413,10 @@ textarea { font-size: 14px; }
 .img-timer-porcoes {
     height: 50px;
     width: 50px;
+}
+
+.btn-edicao {
+    padding-right: 5px;
 }
 
 /* Modal das receitas
@@ -637,6 +693,10 @@ textarea { font-size: 14px; }
 
     .porcoes-tempo {
         flex-direction: column;
+    }
+
+    .custom-ingredientes {
+        flex-direction: row;
     }
 }
 

@@ -11,6 +11,7 @@ class Receita extends Model {
     private $descricao;
     private $nome_imagem;
     private $ingredientes;
+    private $quantidade_unidade;
     private $modo_de_fazer;
     private $busca;
     private $qtde_porcoes;
@@ -29,27 +30,36 @@ class Receita extends Model {
         $results['ok'] = true;
         $results['msg'] = "";
 
-        if ($_FILES['imagem']['name'] == "") {
+        if (!$_FILES['imagem']['name']) {
             $results['ok'] = false;
-            $results['msg'] = "Você precisa selecionar uma imagem.";
+            $results['msg'] = "Você precisa selecionar uma imagem";
         } else if (strlen($_POST['nome_receita']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Informe o nome da receita.";
+            $results['msg'] = "Informe o nome da receita";
         } else if (strlen($_POST['descricao']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Informe uma breve descrição da receita.";
-        } else if (count($_POST['ingredientes']) == 0) {
+            $results['msg'] = "Informe uma breve descrição da receita";
+        } else if (!$_POST['ingredientes']) {
             $results['ok'] = false;
-            $results['msg'] = "Selecione ao menos um ingrediente para a receita.";
+            $results['msg'] = "Selecione ao menos um ingrediente para a receita";
         } else if (strlen($_POST['modo_de_fazer']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Descreva o modo de fazer.";
+            $results['msg'] = "Descreva o modo de fazer";
         } else if (strlen($_POST['qtde_porcoes']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Informe a quantidade de porções.";
+            $results['msg'] = "Informe a quantidade de porções";
         } else if (strlen($_POST['tempo_preparo']) <= 0) {
             $results['ok'] = false;
-            $results['msg'] = "Informe a quantidade de tempo para o preparo.";
+            $results['msg'] = "Informe a quantidade de tempo para o preparo";
+        }
+
+        $postQuantidades = isset($_POST['quantidade']) ? $_POST['quantidade'] : [];
+
+        foreach ($postQuantidades as $qtde) {
+            if (!$qtde) {
+                $results['ok'] = false;
+                $results['msg'] = "Informe a quantidade e unidade de medida do ingrediente selecionado";
+            }
         }
 
         return $results;
@@ -83,11 +93,11 @@ class Receita extends Model {
         return $results;
     }
 
-    public function salvarReceita(): void {
+    public function salvarReceita() {
         $sql = "INSERT INTO receitas
-            (id_usuario, nome_receita, descricao, nome_imagem, ingredientes, modo_de_fazer, qtde_porcoes, tempo_preparo)
+            (id_usuario, nome_receita, descricao, nome_imagem, ingredientes, quantidade_unidade, modo_de_fazer, qtde_porcoes, tempo_preparo)
             VALUES
-            (:id_usuario, :nome_receita, :descricao, :nome_imagem, :ingredientes, :modo_de_fazer, :qtde_porcoes, :tempo_preparo)";
+            (:id_usuario, :nome_receita, :descricao, :nome_imagem, :ingredientes, :quantidade_unidade, :modo_de_fazer, :qtde_porcoes, :tempo_preparo)";
 
         $stmt = $this->database->prepare($sql);
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
@@ -95,6 +105,7 @@ class Receita extends Model {
         $stmt->bindValue(':descricao', $this->__get('descricao'));
         $stmt->bindValue(':nome_imagem', $this->__get('nome_imagem'));
         $stmt->bindValue(':ingredientes', $this->__get('ingredientes'));
+        $stmt->bindValue(':quantidade_unidade', $this->__get('quantidade_unidade'));
         $stmt->bindValue(':modo_de_fazer', $this->__get('modo_de_fazer'));
         $stmt->bindValue(':qtde_porcoes', $this->__get('qtde_porcoes'));
         $stmt->bindValue(':tempo_preparo', $this->__get('tempo_preparo'));
@@ -108,6 +119,7 @@ class Receita extends Model {
                 descricao = :descricao,
                 nome_imagem = :nome_imagem,
                 ingredientes = :ingredientes,
+                quantidade_unidade = :quantidade_unidade,
                 modo_de_fazer = :modo_de_fazer,
                 qtde_porcoes = :qtde_porcoes,
                 tempo_preparo = :tempo_preparo
@@ -119,6 +131,7 @@ class Receita extends Model {
         $stmt->bindValue(':descricao', $this->__get('descricao'));
         $stmt->bindValue(':nome_imagem', $this->__get('nome_imagem'));
         $stmt->bindValue(':ingredientes', $this->__get('ingredientes'));
+        $stmt->bindValue(':quantidade_unidade', $this->__get('quantidade_unidade'));
         $stmt->bindValue(':modo_de_fazer', $this->__get('modo_de_fazer'));
         $stmt->bindValue(':qtde_porcoes', $this->__get('qtde_porcoes'));
         $stmt->bindValue(':tempo_preparo', $this->__get('tempo_preparo'));
@@ -126,7 +139,7 @@ class Receita extends Model {
     }
 
     public function todasAsReceitas(): array {
-        $sql = "SELECT r.id, r.descricao, r.ingredientes, r.modo_de_fazer, r.nome_imagem, r.nome_receita, u.nome,
+        $sql = "SELECT r.id, r.id_usuario, r.descricao, r.ingredientes, r.modo_de_fazer, r.nome_imagem, r.nome_receita, u.nome,
             DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastrado, f.id as id_favorito
             FROM receitas r
             INNER JOIN usuarios u
@@ -144,8 +157,17 @@ class Receita extends Model {
     }
 
     public function favoritosPorUsuario() {
-        $sql = "SELECT r.id, r.descricao, r.ingredientes, r.modo_de_fazer, r.nome_imagem, r.nome_receita, u.nome, r.removido_em,
-            DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastrado, f.id as id_favorito
+        $sql = "SELECT
+                DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastrado,
+                r.id, r.descricao,
+                r.ingredientes,
+                r.modo_de_fazer,
+                r.nome_imagem,
+                r.nome_receita,
+                r.removido_em,
+                u.nome,
+                u.id as id_usuario,
+                f.id as id_favorito
             FROM receitas r
             INNER JOIN usuarios u
                 ON (u.id = r.id_usuario)
@@ -280,10 +302,12 @@ class Receita extends Model {
     public function removerReceita() {
         $sql = "UPDATE receitas
             SET removido_em = now()
-            WHERE id = :id";
+            WHERE id = :id
+            AND id_usuario = :id_usuario";
 
         $stmt = $this->database->prepare($sql);
-        $stmt->bindValue(':id', $this->__get('id'));
+        $stmt->bindValue('id', $this->__get('id'));
+        $stmt->bindValue('id_usuario', $this->__get('id_usuario'));
         $stmt->execute();
 
         return $stmt->rowCount();

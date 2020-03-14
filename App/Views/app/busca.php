@@ -84,13 +84,25 @@
 
                             <div class="buttons-receita">
                                 <div class="editar-excluir">
-                                    <a href="/alterar?id=<?= $receita['id']; ?>" class="btn-edicao" title="Editar receita">
-                                        <i class="fas fa-edit text-success"></i>
-                                    </a>
-                                    <button class="btn-excluir" id="<?= $receita['id']; ?>" title="Excluir receita">
-                                        <i class="fas fa-trash-alt text-danger"></i>
-                                    </button>
+
+                                    <?php if ($receita['id_usuario'] == $_SESSION['id']) { ?>
+                                        <a href="/alterar?id=<?= $receita['id']; ?>" class="btn-edicao" title="Editar receita">
+                                            <i class="fas fa-edit text-success"></i>
+                                        </a>
+                                        <a class="btn-excluir" id="<?= $receita['id']; ?>" title="Excluir receita" style="cursor: pointer;">
+                                            <i class="fas fa-trash-alt text-danger"></i>
+                                        </a>
+                                    <?php } else { ?>
+                                        <a class="btn-edicao" title="Somente o autor pode editar a receita">
+                                            <i class="fas fa-edit text-gray"></i>
+                                        </a>
+                                        <a class="" title="Somente o autor pode excluir a receita">
+                                            <i class="fas fa-trash-alt text-gray"></i>
+                                        </a>
+                                    <?php } ?>
+
                                 </div>
+
                                 <button class="btn-fav" id="<?= $receita['id'] ?>" type="button" title="Favoritar receita">
                                     <?php if (!$receita['id_favorito']) { ?>
                                         <i class="far fa-thumbs-up fa-lg"></i>
@@ -98,6 +110,7 @@
                                         <i class="fas fa-thumbs-up text-primary fa-lg"></i>
                                     <?php } ?>
                                 </button>
+
                             </div>
                         </div>
                     </div>

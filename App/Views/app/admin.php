@@ -8,8 +8,8 @@
             <article>
                 <div class="col-md-12 d-flex justify-content-center mt-3">
 
-                    <div class="card" style="max-width:500px;">
-                        <img src="<?= "../../../uploads/" . $receita['nome_imagem'] . ""; ?>" class="card-img-top">
+                    <div class="card" style="width:500px;">
+                        <img class="card-img-top" src="<?= "../../../uploads/" . $receita['nome_imagem'] . ""; ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?= $receita['nome_receita']; ?></h5>
                             <p class="card-text"><?= $receita['descricao']; ?></p>

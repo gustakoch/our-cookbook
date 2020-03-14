@@ -47,6 +47,7 @@ class AppController extends Action {
 
         $ingrediente = Container::getModel('Ingrediente');
         $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+        $this->dados->unidades_medida = $ingrediente->unidadesMedidaIngredientes();
 
         $this->render('novareceita', 'Layout');
     }
@@ -157,23 +158,45 @@ class AppController extends Action {
         session_start();
 
         $ingrediente = Container::getModel('Ingrediente');
-
         $ingrediente->__set('id_usuario', $_SESSION['id']);
-        $ingrediente->__set('ingrediente', ucfirst(mb_strtolower($_POST['ingrediente'])));
+        $ingrediente->__set('ingrediente', mb_convert_case($_POST['ingrediente'], MB_CASE_TITLE));
+
+        $ingredienteExiste = $ingrediente->verificaNomeIngrediente();
+
+        if ($ingredienteExiste) {
+            echo json_encode(array(
+                'ok' => false,
+                'title' => 'Erro ao adicionar ingrediente',
+                'msg' => 'O nome informado já está cadastrado'
+            ));
+
+            return false;
+        }
 
         if (!$ingrediente->validacaoDeCampos()) {
             Logs::register($_SESSION['nome'], 'error', 'Não passou da validação de campos!');
 
-            header('Location: /cadastros/novoingrediente?error');
+            echo json_encode(array(
+                'ok' => false,
+                'title' => 'Erro ao adicionar ingrediente',
+                'msg' => 'Por favor, informe o nome do ingrediente'
+            ));
+
+            return false;
         } else {
             $ingrediente->cadastrarIngrediente();
             Logs::register($_SESSION['nome'], 'success', 'Novo ingrediente cadastrado!');
 
-            header('Location: /cadastros/novoingrediente?ok');
+            echo json_encode(array(
+                'ok' => true,
+                'title' => 'Ingrediente adicionado',
+                'msg' => 'Seu ingrediente foi adicionado com sucesso'
+            ));
+
+            return true;
         }
     }
 
-    // EM DESUSO NO MOMENTO
     public function removerImagensTemp() {
         $pasta = "/var/www/html/uploads/temp/";
 
@@ -185,7 +208,6 @@ class AppController extends Action {
                     unlink($pasta.$arquivo);
                 }
             }
-
             $diretorio->close();
         }
     }
@@ -221,38 +243,39 @@ class AppController extends Action {
         if ($validacao['ok']) {
             $descricao = substr($_POST['descricao'], 0, 120);
             $nome_imagem = $this->nomeImagemUpload($_FILES['imagem']['name']);
-            $string_ingredientes = implode(',', $_POST['ingredientes']);
+            $string_ingredientes = implode('-', $_POST['ingredientes']);
+            $string_quantidades = implode('-', $_POST['quantidade']);
 
             $receita->__set('id_usuario', $_SESSION['id']);
-            $receita->__set('nome_receita', $_POST['nome_receita']);
+            $receita->__set('nome_receita', ucfirst($_POST['nome_receita']));
             $receita->__set('descricao', $descricao);
             $receita->__set('nome_imagem', $nome_imagem);
             $receita->__set('ingredientes', $string_ingredientes);
+            $receita->__set('quantidade_unidade', $string_quantidades);
             $receita->__set('modo_de_fazer', $_POST['modo_de_fazer']);
             $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
             $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
 
             $this->uploadImagem();
             $receita->salvarReceita();
+
             Logs::register($_SESSION['nome'], 'success', 'Nova receita cadastrada!');
 
-            header('Location: /novareceita?ok');
+            echo json_encode(array(
+                'ok' => true,
+                'title' => 'Receita salva com sucesso!',
+                'msg' => 'Sua receita pode ser acessada em Consultas > Todas as Receitas'
+            ));
+
+            return true;
         } else {
-            $ingrediente = Container::getModel('Ingrediente');
-            $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+            echo json_encode(array(
+                'ok' => false,
+                'title' => 'Erro ao salvar receita',
+                'msg' => $validacao['msg']
+            ));
 
-            $ingredientes = isset($_POST['ingredientes']) ? $_POST['ingredientes'] : array();
-
-            $this->dados->dados_receita = array(
-                'msg' => $validacao['msg'],
-                'nome_receita' => $_POST['nome_receita'],
-                'descricao' => substr($_POST['descricao'], 0, 120),
-                'ingredientes' => $ingredientes,
-                'modo_de_fazer' => $_POST['modo_de_fazer']
-            );
-            Logs::register($_SESSION['nome'], 'error', $validacao['msg']);
-
-            $this->render('novareceita', 'Layout');
+            return false;
         }
     }
 
@@ -354,32 +377,29 @@ class AppController extends Action {
         $receita->__set('id', $id_receita);
         $receita->__set('id_usuario', $_SESSION['id']);
 
-        $cadastrou_receita = $receita->usuarioCadastrouReceita();
+        $ingrediente = Container::getModel('Ingrediente');
 
-        if ($cadastrou_receita) {
-            $ingrediente = Container::getModel('Ingrediente');
-            $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
-            $this->dados->receita = $receita->procurarReceitaPorId();
+        $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+        $this->dados->receita = $receita->procurarReceitaPorId();
 
-            $this->render('editar_receita', 'Layout');
-        } else {
-            // Fazer alguma coisa quando o usuário não é quem cadastrou a receita.
-        }
+        $this->render('editar_receita', 'Layout');
     }
 
     public function atualizarReceita() {
-        $receita = Container::getModel('Receita');
+        $id_receita = preg_replace("/[^0-9]/", "", $_POST['id']);
         session_start();
 
-        $id_receita = preg_replace("/[^0-9]/", "", $_POST['id']);
+        $receita = Container::getModel('Receita');
 
         $descricao = substr($_POST['descricao'], 0, 120);
-        $string_ingredientes = implode(',', $_POST['ingredientes']);
+        $stringIngredientes = implode('-', $_POST['ingredientes']);
+        $stringQtdeUnidade = implode('-', $_POST['quantidade']);
 
         $receita->__set('id', $id_receita);
-        $receita->__set('nome_receita', $_POST['nome_receita']);
+        $receita->__set('nome_receita', ucfirst($_POST['nome_receita']));
         $receita->__set('descricao', $descricao);
-        $receita->__set('ingredientes', $string_ingredientes);
+        $receita->__set('ingredientes', $stringIngredientes);
+        $receita->__set('quantidade_unidade', $stringQtdeUnidade);
         $receita->__set('modo_de_fazer', $_POST['modo_de_fazer']);
         $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
         $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
@@ -389,6 +409,7 @@ class AppController extends Action {
         if (strlen($_FILES['imagem']['name']) > 0) {
             $nome_imagem = $this->nomeImagemUpload($_FILES['imagem']['name']);
             $receita->__set('nome_imagem', $nome_imagem);
+
             $this->uploadImagem();
         } else {
             $nome_imagem = $receita->getStringImagem();
@@ -397,44 +418,83 @@ class AppController extends Action {
 
         if ($validacao['ok']) {
             $receita->atualizarReceita();
-            $this->dados->msg = "Receita atualizada com sucesso!";
-            $this->dados->receitas = $receita->todasAsReceitas();
 
-            $this->render('receitas', 'Layout');
+            echo json_encode(array(
+                'ok' => true,
+                'title' => 'Receita atualizada',
+                'msg' => 'Sua receita foi atualizada com sucesso'
+            ));
+
+            return true;
         } else {
-            error_reporting(~E_WARNING);
+            echo json_encode(array(
+                'ok' => false,
+                'title' => 'Erro ao atualizar receita',
+                'msg' => $validacao['msg']
+            ));
 
-            $ingrediente = Container::getModel('Ingrediente');
-            $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
-
-            $ingredientes = isset($_POST['ingredientes']) ? $_POST['ingredientes'] : [];
-
-            $receita = Container::getModel('Receita');
-
-            $descricao = substr($_POST['descricao'], 0, 120);
-            $string_ingredientes = implode(',', $_POST['ingredientes']);
-
-            $receita->__set('nome_receita', $_POST['nome_receita']);
-            $receita->__set('descricao', $descricao);
-            $receita->__set('ingredientes', $string_ingredientes);
-            $receita->__set('modo_de_fazer', $_POST['modo_de_fazer']);
-            $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
-            $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
-
-            $this->dados->receita = array(
-                'msg' => $validacao['msg'],
-                'id' => $_POST['id'],
-                'nome_receita' => $_POST['nome_receita'],
-                'descricao' => substr($_POST['descricao'], 0, 120),
-                'ingredientes' => $ingredientes,
-                'modo_de_fazer' => $_POST['modo_de_fazer'],
-                'qtde_porcoes' => $_POST['qtde_porcoes'],
-                'tempo_preparo' => $_POST['tempo_preparo']
-            );
-
-            $this->render('editar_receita', 'Layout');
+            return false;
         }
-
     }
 
+    public function excluirIngrediente() {
+        $id_ingrediente = preg_replace("/[^0-9]/", "", $_GET['id']);
+
+        $ingrediente = Container::getModel('Ingrediente');
+        $ingrediente->__set('id', $id_ingrediente);
+
+        $removido = $ingrediente->excluirReceiteById();
+
+        if ($removido) {
+            echo json_encode(array(
+                'title' => 'Removido!',
+                'msg' => 'Ingrediente removido com sucesso.'
+            ));
+        }
+    }
+
+    public function editarIngrediente() {
+        $id_ingrediente = preg_replace("/[^0-9]/", "", $_POST['id']);
+        $nomeImgrediente = preg_replace("/[^A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+/", "", $_POST['ingrediente']);
+        $nomeImgrediente = mb_convert_case($nomeImgrediente, MB_CASE_TITLE);
+
+        if (strlen(trim($nomeImgrediente)) <= 0) {
+            echo json_encode(array(
+                'ok' => false,
+                'title' => 'Erro ao atualizar ingrediente!',
+                'msg' => 'Por favor, informe o novo nome do ingrediente'
+            ));
+
+            return false;
+        }
+
+        $ingrediente = Container::getModel('Ingrediente');
+        $ingrediente->__set('id', $id_ingrediente);
+        $ingrediente->__set('ingrediente', $nomeImgrediente);
+
+        $ingredienteExiste = $ingrediente->verificaNomeIngrediente();
+
+        if ($ingredienteExiste) {
+            echo json_encode(array(
+                'ok' => false,
+                'title' => 'Erro ao atualizar ingrediente!',
+                'msg' => 'Nome de ingrediente já cadastrado e/ou não permitido'
+            ));
+
+            return false;
+        }
+
+        $ingredienteAtualizado = $ingrediente->editarReceiteById();
+
+        if ($ingredienteAtualizado) {
+            echo json_encode(array(
+                'ok' => true,
+                'nome_ingrediente' => $nomeImgrediente,
+                'title' => 'Atualizado!',
+                'msg' => 'Ingrediente atualizado com sucesso'
+            ));
+
+            return true;
+        }
+    }
 }

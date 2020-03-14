@@ -7,15 +7,22 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col" style="text-align: center;">#</th>
                             <th scope="col">Nome do ingrediente</th>
+                            <th scope="col" style="text-align: center; width: 94px;">#</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->dados->ingredientes as $ingrediente) { ?>
                             <tr>
-                                <td style="text-align: center;"><?= $ingrediente['id']; ?></td>
-                                <td><?= $ingrediente['ingrediente']; ?></td>
+                                <td id="ingrediente<?= $ingrediente['id']; ?>"><?= $ingrediente['ingrediente']; ?></td>
+                                <td style="text-align: center; vertical-align: middle;">
+                                    <button class="btn-edicao-ingrediente" id="<?= $ingrediente['id']; ?>" title="Editar ingrediente">
+                                        <i class="fas fa-edit text-success"></i>
+                                    </button>
+                                    <a class="btn-excluir-ingrediente" id="<?= $ingrediente['id']; ?>" title="Excluir ingrediente" style="cursor: pointer;">
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>

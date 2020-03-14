@@ -17,7 +17,7 @@ services:
         image: mysql:5.7
         container_name: mysqldb
         ports:
-            - "3307:3306"
+            - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_DATABASE: cookbook
