@@ -227,8 +227,16 @@ class Receita extends Model {
     }
 
     public function buscaReceitas() {
-        $sql = "SELECT r.id, r.descricao, r.ingredientes, r.modo_de_fazer, r.nome_imagem, r.nome_receita, u.nome,
-            DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') as data_cadastrado, f.id as id_favorito
+        $sql = "SELECT
+                r.id, u.id AS id_usuario,
+                r.descricao,
+                r.ingredientes,
+                r.modo_de_fazer,
+                r.nome_imagem,
+                r.nome_receita,
+                u.nome,
+                DATE_FORMAT(r.cadastrado_em, '%d/%m/%Y \à\s %H:%i') AS data_cadastrado,
+                f.id AS id_favorito
             FROM receitas r
             INNER JOIN usuarios u
                 ON (u.id = r.id_usuario)
