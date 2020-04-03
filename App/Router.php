@@ -36,10 +36,10 @@ class Router extends Bootstrap {
         $routes['excluir']                    = array('route' => '/excluir','controller' => 'AppController','action' => 'excluir');
         $routes['alterar']                    = array('route' => '/alterar','controller' => 'AppController','action' => 'alterar');
         $routes['atualizarreceita']           = array('route' => '/atualizarreceita','controller' => 'AppController','action' => 'atualizarReceita');
-        $routes['cadastros/novoingrediente']  = array('route' => '/cadastros/novoingrediente','controller' => 'AppController','action' => 'cadastroNovoIngrediente');
         $routes['unidadesmedidaingredientes'] = array('route' => '/unidadesmedidaingredientes','controller' => 'AppController','action' => 'unidadesMedidaIngredientes');
         $routes['excluiringrediente']         = array('route' => '/excluiringrediente','controller' => 'AppController','action' => 'excluirIngrediente');
         $routes['editaringrediente']          = array('route' => '/editaringrediente','controller' => 'AppController','action' => 'editarIngrediente');
+        $routes['inativaringrediente']        = array('route' => '/inativaringrediente','controller' => 'AppController','action' => 'inativarIngrediente');
 
         $this->setRoutes($routes);
     }

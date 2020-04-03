@@ -632,9 +632,20 @@ textarea { font-size: 14px; }
 }
 
 
-
 /* Media Queries
 ************************************************************/
+
+@media screen and (max-width: 460px) {
+    .form-edicao-ingrediente {
+        flex-direction: column !important;
+    }
+
+    .form-edicao-ingrediente button {
+        margin-top: 8px !important;
+        margin-left: 0 !important;
+    }
+
+}
 
 @media (max-width: 575.98px) {
     .configuracoes {

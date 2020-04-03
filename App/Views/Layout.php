@@ -94,8 +94,8 @@
                                     <i class="fas fa-search"></i> Consultas
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="/ingredientes">Ingredientes cadastrados</a>
-                                    <a class="dropdown-item" href="/receitas">Todas as Receitas</a>
+                                    <a class="dropdown-item" href="/ingredientes">Ingredientes</a>
+                                    <a class="dropdown-item" href="/receitas">Receitas</a>
                                 </div>
                             </li>
 
@@ -104,7 +104,6 @@
                                     <i class="fas fa-plus"></i> Cadastros
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="/cadastros/novoingrediente">Novo Ingrediente</a>
                                     <a class="dropdown-item" href="/novareceita">Nova Receita</a>
                                 </div>
                             </li>

@@ -46,7 +46,7 @@ class AppController extends Action {
         $this->autenticaUsuario();
 
         $ingrediente = Container::getModel('Ingrediente');
-        $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+        $this->dados->ingredientes = $ingrediente->getIngredientesAtivos();
         $this->dados->unidades_medida = $ingrediente->unidadesMedidaIngredientes();
 
         $this->render('novareceita', 'Layout');
@@ -146,12 +146,6 @@ class AppController extends Action {
         } else {
             return false;
         }
-    }
-
-    public function cadastroNovoIngrediente() {
-        $this->autenticaUsuario();
-
-        $this->render('novoingrediente', 'Layout');
     }
 
     public function novoIngrediente() {
@@ -449,6 +443,22 @@ class AppController extends Action {
             echo json_encode(array(
                 'title' => 'Removido!',
                 'msg' => 'Ingrediente removido com sucesso.'
+            ));
+        }
+    }
+
+    public function inativarIngrediente() {
+        $id_ingrediente = preg_replace("/[^0-9]/", "", $_GET['id']);
+
+        $ingrediente = Container::getModel('Ingrediente');
+        $ingrediente->__set('id', $id_ingrediente);
+
+        $inativado = $ingrediente->inativarIngredienteById();
+
+        if ($inativado) {
+            echo json_encode(array(
+                'title' => 'Inativado!',
+                'msg' => 'Ingrediente inativado com sucesso.'
             ));
         }
     }

@@ -296,7 +296,7 @@ $(document).ready(function() {
             });
         });
 
-        $('.btn-excluir-ingrediente').click(function(e) {
+        $('.btn-inativar-ingrediente').click(function(e) {
             e.preventDefault();
 
             Swal.fire({
@@ -307,14 +307,14 @@ $(document).ready(function() {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Sim, pode remover!',
+                confirmButtonText: 'Sim, pode inativar!',
             })
             .then((result) => {
                 if (result.value) {
                     let id = $(this).attr('id');
 
                     $.ajax({
-                        url: '/excluiringrediente?id=' + id,
+                        url: '/inativaringrediente?id=' + id,
                         dataType: 'json',
                         success: function(response) {
                             Swal.fire(response.title, response.msg, 'success');
