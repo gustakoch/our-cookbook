@@ -14,7 +14,13 @@
 
                 <label><strong>Imagem:</strong></label>
                 <div class="box-image">
-                    <img class="preview-img" src="../../../uploads/<?php echo $this->dados->receita['nome_imagem']; ?>" height="250" width="500">
+
+                    <?php if (!$this->dados->receita['nome_imagem']) { ?>
+                        <img class="preview-img" src="../../../assets/images/sem-imagem.jpeg" height="248" width="500">
+                    <?php } else { ?>
+                        <img class="preview-img" src="../../../uploads/<?php echo $this->dados->receita['nome_imagem']; ?>" height="250" width="500">
+                    <?php } ?>
+
                 </div>
 
                 <label id="img-label" for="imagem">Clique aqui para alterar a imagem</label>

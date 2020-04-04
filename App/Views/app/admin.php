@@ -7,9 +7,14 @@
         <?php foreach ($this->dados->receitas as $receita) { ?>
             <article>
                 <div class="col-md-12 d-flex justify-content-center mt-3">
-
                     <div class="card" style="width:500px;">
-                        <img class="card-img-top" src="<?= "../../../uploads/" . $receita['nome_imagem'] . ""; ?>">
+
+                        <?php if (!$receita['nome_imagem']) { ?>
+                            <img class="card-img-top" src="../../../assets/images/sem-imagem.jpeg">
+                        <?php } else { ?>
+                            <img class="card-img-top" src="<?= "../../../uploads/" . $receita['nome_imagem'] . ""; ?>">
+                        <?php } ?>
+
                         <div class="card-body">
                             <h5 class="card-title"><?= $receita['nome_receita']; ?></h5>
                             <p class="card-text"><?= $receita['descricao']; ?></p>
@@ -19,7 +24,6 @@
                             <small class="text-muted">Por <?= $receita['nome']; ?></small>
                         </div>
                     </div>
-
                 </div>
             </article>
         <?php } ?>

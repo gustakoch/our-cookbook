@@ -30,10 +30,7 @@ class Receita extends Model {
         $results['ok'] = true;
         $results['msg'] = "";
 
-        if (!$_FILES['imagem']['name']) {
-            $results['ok'] = false;
-            $results['msg'] = "Você precisa selecionar uma imagem";
-        } else if (strlen($_POST['nome_receita']) <= 0) {
+        if (strlen($_POST['nome_receita']) <= 0) {
             $results['ok'] = false;
             $results['msg'] = "Informe o nome da receita";
         } else if (strlen($_POST['descricao']) <= 0) {

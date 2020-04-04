@@ -236,9 +236,16 @@ class AppController extends Action {
 
         if ($validacao['ok']) {
             $descricao = substr($_POST['descricao'], 0, 120);
-            $nome_imagem = $this->nomeImagemUpload($_FILES['imagem']['name']);
+
             $string_ingredientes = implode('-', $_POST['ingredientes']);
             $string_quantidades = implode('-', $_POST['quantidade']);
+
+            if (!$_FILES['imagem']['name']) {
+                $nome_imagem = '';
+            } else {
+                $nome_imagem = $this->nomeImagemUpload($_FILES['imagem']['name']);
+                $this->uploadImagem();
+            }
 
             $receita->__set('id_usuario', $_SESSION['id']);
             $receita->__set('nome_receita', ucfirst($_POST['nome_receita']));
@@ -250,15 +257,14 @@ class AppController extends Action {
             $receita->__set('qtde_porcoes', $_POST['qtde_porcoes']);
             $receita->__set('tempo_preparo', $_POST['tempo_preparo']);
 
-            $this->uploadImagem();
             $receita->salvarReceita();
 
             Logs::register($_SESSION['nome'], 'success', 'Nova receita cadastrada!');
 
             echo json_encode(array(
                 'ok' => true,
-                'title' => 'Receita salva com sucesso!',
-                'msg' => 'Sua receita pode ser acessada em Consultas > Todas as Receitas'
+                'title' => 'Receita cadastrada!',
+                'msg' => 'Parabéns! Mais uma para sua coleção'
             ));
 
             return true;

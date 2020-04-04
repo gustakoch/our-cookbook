@@ -16,7 +16,13 @@
             <?php if (count($this->dados->receitas) > 0) { ?>
                 <?php foreach ($this->dados->receitas as $receita) { ?>
                     <div class="lista-receitas">
+
+                    <?php if (!$receita['nome_imagem']) { ?>
+                        <img class="img-receita" id="<?= $receita['id']; ?>" src="../../../assets/images/sem-imagem.jpeg">
+                    <?php } else { ?>
                         <img class="img-receita" id="<?= $receita['id']; ?>" src="../../../uploads/<?= $receita['nome_imagem']; ?>">
+                    <?php } ?>
+
                         <div class="group-receitas">
                             <div class="info-receitas">
                                 <?php

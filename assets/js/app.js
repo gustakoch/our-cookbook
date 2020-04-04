@@ -108,7 +108,13 @@ $(document).ready(function() {
                     }
 
                     $('.modal-title').html(dados.nome_receita);
-                    $('#img-receita-modal').attr('src', '../../uploads/' + dados.nome_imagem);
+
+                    if (!dados.nome_imagem) {
+                        $('#img-receita-modal').attr('src', '../../assets/images/sem-imagem.jpeg');
+                    } else {
+                        $('#img-receita-modal').attr('src', '../../uploads/' + dados.nome_imagem);
+                    }
+
                     $('#publicacao-receita').html(`Publicado em ${dataCompleta} às ${horaAbreviada}`);
                     $('#criacao-receita').html(`Criado por ${dados.nome}`);
 

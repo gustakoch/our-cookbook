@@ -337,6 +337,7 @@ textarea { font-size: 14px; }
     width: 140px;
     height: 100px;
     cursor: pointer;
+    border: 1px solid #dedede;
 }
 
 .group-receitas {
