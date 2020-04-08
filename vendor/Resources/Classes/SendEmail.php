@@ -41,7 +41,7 @@ class SendMail extends PHPMailer {
         $this->CharSet    = 'UTF-8';
 
         $this->setFrom($this->from, 'Our Cookbook');
-        $this->addAddress('srt.gugah@gmail.com');
+        $this->addAddress($_ENV['EMAIL_ADMIN']);
 
         $this->isHTML(true);
         $this->Subject = 'Novo usuário registrado';
