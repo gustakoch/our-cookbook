@@ -6,8 +6,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+use Resources\Classes\SendMail;
 use Resources\Classes\Bcrypt;
 use Resources\Classes\Logs;
+
 use Resources\Controller\Action;
 use Resources\Model\Container;
 
@@ -187,6 +189,9 @@ class IndexController extends Action {
 
             if (!$usuario_existente['ok']) {
                 $usuario->criarUsuario();
+
+                $email = new SendMail();
+                $email->newUserRegister($_POST['nome'], $_POST['email']);
 
                 Logs::register($_POST['email'], 'success', 'Usuário novo criado!');
                 header('Location: /criarconta?ok');

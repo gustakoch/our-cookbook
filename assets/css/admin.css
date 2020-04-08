@@ -242,6 +242,16 @@ textarea { font-size: 14px; }
     background: none;
 }
 
+.page-item.active .page-link {
+    background-color: #f45000;
+    border-color: #f45000;
+}
+
+.pagination-sm .page-link {
+    color: #f45000;
+    box-shadow: 0 0 0 0;
+}
+
 /* Página de configurações gerais
 *********************************************/
 .configuracoes {

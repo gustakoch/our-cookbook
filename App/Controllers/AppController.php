@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Controllers;
 
 use Resources\Classes\Bcrypt;
 use Resources\Classes\Logs;
+use Resources\Classes\SendMail;
+
 use Resources\Controller\Action;
 use Resources\Model\Container;
 
@@ -56,7 +57,18 @@ class AppController extends Action {
         $this->autenticaUsuario();
 
         $ingrediente = Container::getModel('Ingrediente');
-        $this->dados->ingredientes = $ingrediente->todosOsIngredientes();
+        $todosIngredientes = $ingrediente->todosOsIngredientes();
+
+        $pagina = isset($_GET['p']) ? (int) $_GET['p'] : 1;
+        $totalIngredientes = count($todosIngredientes);
+        $qtdePorPagina = 10;
+        $inicio = ($qtdePorPagina * $pagina) - $qtdePorPagina;
+
+        $this->dados->ingredientes = $ingrediente->ingredientesPorPagina($inicio, $qtdePorPagina);
+        $this->dados->totalPaginas = (int) ceil($totalIngredientes / $qtdePorPagina);
+        $this->dados->paginaAnterior = $pagina - 1;
+        $this->dados->paginaSeguinte = $pagina + 1;
+        $this->dados->pagina = $pagina;
 
         $this->render('ingredientes', 'Layout');
     }
@@ -136,6 +148,8 @@ class AppController extends Action {
     }
 
     public function updateStatusUsuario() {
+        $this->autenticaUsuario();
+
         $usuario = Container::getModel('Usuario');
 
         $usuario->__set('id', $_POST['id']);
@@ -149,6 +163,8 @@ class AppController extends Action {
     }
 
     public function novoIngrediente() {
+        $this->autenticaUsuario();
+
         session_start();
 
         $ingrediente = Container::getModel('Ingrediente');
@@ -191,21 +207,6 @@ class AppController extends Action {
         }
     }
 
-    public function removerImagensTemp() {
-        $pasta = "/var/www/html/uploads/temp/";
-
-        if (is_dir($pasta)) {
-            $diretorio = dir($pasta);
-
-            while ($arquivo = $diretorio->read()) {
-                if (($arquivo != '.') && ($arquivo != '..')) {
-                    unlink($pasta.$arquivo);
-                }
-            }
-            $diretorio->close();
-        }
-    }
-
     public function nomeImagemUpload($imagem, $temp = false) {
         $extensao = strtolower(end(explode('.', $imagem)));
 
@@ -229,6 +230,8 @@ class AppController extends Action {
     }
 
     public function cadastroNovaReceita() {
+        $this->autenticaUsuario();
+
         session_start();
 
         $receita = Container::getModel('Receita');
@@ -280,6 +283,8 @@ class AppController extends Action {
     }
 
     public function buscarReceitaPorId() {
+        $this->autenticaUsuario();
+
         $receita = Container::getModel('Receita');
         $ingrediente = Container::getModel('Ingrediente');
 
@@ -294,6 +299,8 @@ class AppController extends Action {
     }
 
     public function resultadosDaBusca() {
+        $this->autenticaUsuario();
+
         session_start();
 
         $receita = Container::getModel('Receita');
@@ -305,6 +312,8 @@ class AppController extends Action {
     }
 
     public function favoritos() {
+        $this->autenticaUsuario();
+
         session_start();
         error_reporting(~E_NOTICE);
 
@@ -318,6 +327,8 @@ class AppController extends Action {
     }
 
     public function alterarSenhaUsuario() {
+        $this->autenticaUsuario();
+
         session_start();
 
         error_reporting(~E_NOTICE);
@@ -352,6 +363,8 @@ class AppController extends Action {
     }
 
     public function excluir() {
+        $this->autenticaUsuario();
+
         $id_receita = preg_replace("/[^0-9]/", "", $_GET['id']);
         session_start();
 
@@ -370,6 +383,8 @@ class AppController extends Action {
     }
 
     public function alterar() {
+        $this->autenticaUsuario();
+
         $id_receita = preg_replace("/[^0-9]/", "", $_GET['id']);
         session_start();
 
@@ -386,6 +401,8 @@ class AppController extends Action {
     }
 
     public function atualizarReceita() {
+        $this->autenticaUsuario();
+
         $id_receita = preg_replace("/[^0-9]/", "", $_POST['id']);
         session_start();
 
@@ -438,6 +455,8 @@ class AppController extends Action {
     }
 
     public function excluirIngrediente() {
+        $this->autenticaUsuario();
+
         $id_ingrediente = preg_replace("/[^0-9]/", "", $_GET['id']);
 
         $ingrediente = Container::getModel('Ingrediente');
@@ -454,6 +473,8 @@ class AppController extends Action {
     }
 
     public function inativarIngrediente() {
+        $this->autenticaUsuario();
+
         $id_ingrediente = preg_replace("/[^0-9]/", "", $_GET['id']);
 
         $ingrediente = Container::getModel('Ingrediente');
@@ -470,6 +491,8 @@ class AppController extends Action {
     }
 
     public function editarIngrediente() {
+        $this->autenticaUsuario();
+
         $id_ingrediente = preg_replace("/[^0-9]/", "", $_POST['id']);
         $nomeImgrediente = preg_replace("/[^A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+/", "", $_POST['ingrediente']);
         $nomeImgrediente = mb_convert_case($nomeImgrediente, MB_CASE_TITLE);

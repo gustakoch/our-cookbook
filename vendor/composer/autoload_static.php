@@ -61,11 +61,74 @@ class ComposerStaticInit0ebf3547ffdee09d4120754e56e8d4c5
         ),
     );
 
+    public static $classMap = array (
+        'App\\Connection' => __DIR__ . '/../..' . '/App/Connection.php',
+        'App\\Controllers\\AppController' => __DIR__ . '/../..' . '/App/Controllers/AppController.php',
+        'App\\Controllers\\AuthController' => __DIR__ . '/../..' . '/App/Controllers/AuthController.php',
+        'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/App/Controllers/IndexController.php',
+        'App\\Models\\Ingrediente' => __DIR__ . '/../..' . '/App/Models/Ingrediente.php',
+        'App\\Models\\Mensagem' => __DIR__ . '/../..' . '/App/Models/Mensagem.php',
+        'App\\Models\\Receita' => __DIR__ . '/../..' . '/App/Models/Receita.php',
+        'App\\Models\\Usuario' => __DIR__ . '/../..' . '/App/Models/Usuario.php',
+        'App\\Router' => __DIR__ . '/../..' . '/App/Router.php',
+        'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
+        'Dotenv\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ExceptionInterface.php',
+        'Dotenv\\Exception\\InvalidFileException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidFileException.php',
+        'Dotenv\\Exception\\InvalidPathException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidPathException.php',
+        'Dotenv\\Exception\\ValidationException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ValidationException.php',
+        'Dotenv\\Loader\\Lines' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader/Lines.php',
+        'Dotenv\\Loader\\Loader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader/Loader.php',
+        'Dotenv\\Loader\\LoaderInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader/LoaderInterface.php',
+        'Dotenv\\Loader\\Parser' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader/Parser.php',
+        'Dotenv\\Loader\\Value' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader/Value.php',
+        'Dotenv\\Regex\\Regex' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Regex/Regex.php',
+        'Dotenv\\Repository\\AbstractRepository' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/AbstractRepository.php',
+        'Dotenv\\Repository\\AdapterRepository' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/AdapterRepository.php',
+        'Dotenv\\Repository\\Adapter\\ApacheAdapter' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/ApacheAdapter.php',
+        'Dotenv\\Repository\\Adapter\\ArrayAdapter' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/ArrayAdapter.php',
+        'Dotenv\\Repository\\Adapter\\AvailabilityInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/AvailabilityInterface.php',
+        'Dotenv\\Repository\\Adapter\\EnvConstAdapter' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/EnvConstAdapter.php',
+        'Dotenv\\Repository\\Adapter\\PutenvAdapter' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/PutenvAdapter.php',
+        'Dotenv\\Repository\\Adapter\\ReaderInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/ReaderInterface.php',
+        'Dotenv\\Repository\\Adapter\\ServerConstAdapter' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/ServerConstAdapter.php',
+        'Dotenv\\Repository\\Adapter\\WriterInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/Adapter/WriterInterface.php',
+        'Dotenv\\Repository\\RepositoryBuilder' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/RepositoryBuilder.php',
+        'Dotenv\\Repository\\RepositoryInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Repository/RepositoryInterface.php',
+        'Dotenv\\Result\\Error' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Result/Error.php',
+        'Dotenv\\Result\\Result' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Result/Result.php',
+        'Dotenv\\Result\\Success' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Result/Success.php',
+        'Dotenv\\Store\\FileStore' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Store/FileStore.php',
+        'Dotenv\\Store\\File\\Paths' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Store/File/Paths.php',
+        'Dotenv\\Store\\File\\Reader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Store/File/Reader.php',
+        'Dotenv\\Store\\StoreBuilder' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Store/StoreBuilder.php',
+        'Dotenv\\Store\\StoreInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Store/StoreInterface.php',
+        'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
+        'PhpOption\\LazyOption' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/LazyOption.php',
+        'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
+        'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',
+        'PhpOption\\Some' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Some.php',
+        'Resources\\Classes\\Bcrypt' => __DIR__ . '/..' . '/Resources/Classes/Bcrypt.php',
+        'Resources\\Classes\\Logs' => __DIR__ . '/..' . '/Resources/Classes/Logs.php',
+        'Resources\\Classes\\SendMail' => __DIR__ . '/..' . '/Resources/Classes/SendEmail.php',
+        'Resources\\Controller\\Action' => __DIR__ . '/..' . '/Resources/Controller/Action.php',
+        'Resources\\Controller\\ErrorsController' => __DIR__ . '/..' . '/Resources/Controller/ErrorsController.php',
+        'Resources\\Init\\Bootstrap' => __DIR__ . '/..' . '/Resources/Init/Bootstrap.php',
+        'Resources\\Model\\Container' => __DIR__ . '/..' . '/Resources/Model/Container.php',
+        'Resources\\Model\\Model' => __DIR__ . '/..' . '/Resources/Model/Model.php',
+        'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0ebf3547ffdee09d4120754e56e8d4c5::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0ebf3547ffdee09d4120754e56e8d4c5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0ebf3547ffdee09d4120754e56e8d4c5::$classMap;
 
         }, null, ClassLoader::class);
     }

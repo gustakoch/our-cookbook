@@ -45,6 +45,50 @@
                 <span><em>Não há registros de ingredientes. </em> <i class="fas fa-frown text-danger"></i></span>
             <?php } ?>
 
+            <nav>
+                <ul class="pagination pagination-sm justify-content-center">
+                    <?php if ($this->dados->paginaAnterior != 0) { ?>
+                        <li class="page-item">
+                            <a class="page-link" href="/ingredientes?p=<?= $this->dados->paginaAnterior ?>" title="Anterior">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    <?php } else { ?>
+                        <li class="page-item disabled">
+                            <a class="page-link">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php for ($i = 1; $i <= $this->dados->totalPaginas; $i++) { ?>
+                        <?php if ($this->dados->pagina == $i) { ?>
+                            <li class="page-item active">
+                                <a class="page-link" href="/ingredientes?p=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="page-item">
+                                <a class="page-link" href="/ingredientes?p=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php } ?>
+                    <?php } ?>
+
+                    <?php if ($this->dados->paginaSeguinte <= $this->dados->totalPaginas) { ?>
+                        <li class="page-item">
+                            <a class="page-link" href="/ingredientes?p=<?= $this->dados->paginaSeguinte ?>" title="Próximo">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    <?php } else { ?>
+                        <li class="page-item disabled">
+                            <a class="page-link">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </nav>
+
             <hr>
 
             <div class="nova-receita" style="max-width:500px;">

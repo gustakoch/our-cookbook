@@ -30,6 +30,20 @@ class Ingrediente extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function ingredientesPorPagina($inicio, $qtdePagina): array {
+        $sql = "SELECT
+                *
+            FROM ingredientes
+            ORDER BY ingrediente ASC
+            LIMIT $inicio, $qtdePagina";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
     public function getIngredientesAtivos(): array {
         $sql = "SELECT
                 *
