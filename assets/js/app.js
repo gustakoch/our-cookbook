@@ -50,83 +50,82 @@ $(document).ready(function() {
     }
     $('li').on('change', '.item-lista-ingredientes', customizarIngredienteAoCadastrar);
 
-    function carregarModal() {
-        $('.img-receita').click(function(e) {
-            e.preventDefault();
-            let idReceita = $(this).attr('id');
+    $('.img-receita').click(function(e) {
+        e.preventDefault();
+        let id = $(this).attr('id');
 
-            $.ajax({
-                type: "post",
-                url: "/buscarreceitaporid",
-                dataType: 'json',
-                data: {
-                    id: idReceita
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Oops...',
-                        text: 'Não foi possível recuperar as informações',
-                        confirmButtonText: 'Fechar',
-                        footer: 'Erro: ' + error
-                    })
-                    console.log(status, error);
-                },
-                success: function(result) {
-                    const dados = result.dados_receita[0];
-                    const todosIngredientes = result.todos_ingredientes;
+        carregarModalReceitaPorId(id);
+    });
 
-                    $('#main-modal').modal('show');
-
-                    const partes = dados.cadastrado_em.split(' ');
-                    const data = partes[0].split('-');
-                    const dataCompleta = `${data[2]}/${data[1]}/${data[0]}`;
-                    const hora = partes[1].split(':');
-                    const horaAbreviada = `${hora[0]}:${hora[1]}`;
-
-                    const ingredientes = dados.ingredientes.split('-');
-                    const qtde_unidade = dados.quantidade_unidade.split('-');
-
-                    for (var i in qtde_unidade) {
-                        qtde_unidade[i] = qtde_unidade[i].charAt(0).toUpperCase() + qtde_unidade[i].slice(1);
-                    }
-
-                    $('#lista-ingredientes').html('');
-
-                    arrIngredientes = [];
-                    arrUnidades = [];
-                    todosIngredientes.forEach(ingrediente => {
-                        if (ingredientes.includes(ingrediente.id)) {
-                            arrIngredientes.push(ingrediente.ingrediente);
-                        }
-                    });
-
-                    for (let i = 0; i < arrIngredientes.length; i++) {
-                        li = $('<li>');
-                        $(li).appendTo('#lista-ingredientes');
-                        $(li).append(`<i class="fas fa-angle-right"></i> ${arrIngredientes[i]} (<small>${qtde_unidade[i]}</small>)`);
-                    }
-
-                    $('.modal-title').html(dados.nome_receita);
-
-                    if (!dados.nome_imagem) {
-                        $('#img-receita-modal').attr('src', '../../assets/images/sem-imagem.jpeg');
-                    } else {
-                        $('#img-receita-modal').attr('src', '../../uploads/' + dados.nome_imagem);
-                    }
-
-                    $('#publicacao-receita').html(`Publicado em ${dataCompleta} às ${horaAbreviada}`);
-                    $('#criacao-receita').html(`Criado por ${dados.nome}`);
-
-                    let modoDeFazer = dados.modo_de_fazer.split('\n').join('<br />');
-                    $('#modo-de-preparo').html(modoDeFazer);
-
-                    let porcoes = dados.qtde_porcoes > 1 ? 'porções' : 'porção';
-                    $('#qtde-porcoes').html(`Rende ${dados.qtde_porcoes} ${porcoes}`);
-
-                    $('#preparo').html(`Preparado em ${dados.tempo_preparo} minutos`);
+    function carregarModalReceitaPorId(id) {
+        $.ajax({
+            url: "/buscarreceitaporid?id=" + id,
+            dataType: 'json',
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Oops...',
+                    text: 'Não foi possível recuperar as informações',
+                    confirmButtonText: 'Fechar',
+                    footer: 'Erro: ' + error
+                })
+                console.log(status, error);
+            },
+            success: function(result) {
+                const dados = result.dados_receita[0];
+                if (!dados) {
+                    return false;
                 }
-            });
+
+                const todosIngredientes = result.todos_ingredientes;
+
+                $('#main-modal').modal('show');
+
+                const ingredientes = dados.ingredientes.split('-');
+                const qtde_unidade = dados.quantidade_unidade.split('-');
+
+                for (var i in qtde_unidade) {
+                    qtde_unidade[i] = qtde_unidade[i].charAt(0).toUpperCase() + qtde_unidade[i].slice(1);
+                }
+
+                $('#lista-ingredientes').html('');
+
+                arrIngredientes = [];
+                arrUnidades = [];
+                todosIngredientes.forEach(ingrediente => {
+                    if (ingredientes.includes(ingrediente.id)) {
+                        arrIngredientes.push(ingrediente.ingrediente);
+                    }
+                });
+
+                for (let i = 0; i < arrIngredientes.length; i++) {
+                    li = $('<li>');
+                    $(li).appendTo('#lista-ingredientes');
+                    $(li).append(`<i class="fas fa-angle-right"></i> ${arrIngredientes[i]} (<small>${qtde_unidade[i]}</small>)`);
+                }
+
+                $('.modal-title').html(dados.nome_receita);
+
+                if (!dados.nome_imagem) {
+                    $('#img-receita-modal').attr('src', '../../assets/images/sem-imagem.jpeg');
+                } else {
+                    $('#img-receita-modal').attr('src', '../../uploads/' + dados.nome_imagem);
+                }
+
+                moment.locale('pt-br');
+                let data = moment(dados.cadastrado_em).format('LLL');
+
+                $('#publicacao-receita').html(`<i class="far fa-calendar-alt"></i> ${data}`);
+                $('#criacao-receita').html(`<i class="fas fa-user"></i> ${dados.nome}`);
+
+                let modoDeFazer = dados.modo_de_fazer.split('\n').join('<br />');
+                $('#modo-de-preparo').html(modoDeFazer);
+
+                let porcoes = dados.qtde_porcoes > 1 ? 'porções' : 'porção';
+                $('#qtde-porcoes').html(`Rende ${dados.qtde_porcoes} ${porcoes}`);
+
+                $('#preparo').html(`Preparado em ${dados.tempo_preparo} minutos`);
+            }
         });
     }
 
@@ -176,10 +175,10 @@ $(document).ready(function() {
                 $(this).removeClass('bounceIn');
             }, 300);
 
-            if (texto.indexOf('far') != -1) {
-                $(this).html('<i class="fas fa-thumbs-up text-primary fa-lg"></i>');
+            if (texto.indexOf('far') == -1) {
+                $(this).html('<i class="far fa-heart text-warning"></i>');
             } else {
-                $(this).html('<i class="far fa-thumbs-up fa-lg"></i>');
+                $(this).html('<i class="fas fa-heart text-warning"></i>');
             }
 
             $.ajax({
@@ -549,13 +548,19 @@ $(document).ready(function() {
             });
         });
 
+        if (window.location.href.indexOf('/receitas?id=')) {
+            let id = location.search.split('?id=');
+
+            if (id[1]) {
+                carregarModalReceitaPorId(id[1]);
+            }
+        }
     }
 
     loadButton();
     customizarIngredientes();
     alteraStatusUsuario();
     geraPreviewImagem();
-    carregarModal();
     favoritarReceita();
     showHidePasswordText();
     setCapsLockMessage();

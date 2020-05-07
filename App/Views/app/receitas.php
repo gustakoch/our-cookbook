@@ -59,9 +59,9 @@
                                 </div>
                                 <button class="btn-fav" id="<?= $receita['id'] ?>" type="button" title="Favoritar receita">
                                     <?php if (!$receita['id_favorito']) { ?>
-                                        <i class="far fa-thumbs-up fa-lg"></i>
+                                        <i class="far fa-heart text-warning"></i>
                                     <?php } else { ?>
-                                        <i class="fas fa-thumbs-up text-primary fa-lg"></i>
+                                        <i class="fas fa-heart text-warning"></i>
                                     <?php } ?>
                                 </button>
                             </div>

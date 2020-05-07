@@ -75,8 +75,18 @@ header {
 }
 .btn-home a:active { opacity: 1; }
 
+.card-img-link {
+    overflow: hidden;
+}
+
 .card-img-top {
     height: 320px;
+    transition: all 0.3s ease-out;
+}
+
+.card-img-top:hover {
+    transform: scale(1.05);
+    filter: brightness(50%);
 }
 
 /* Footer

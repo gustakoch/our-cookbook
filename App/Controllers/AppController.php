@@ -288,8 +288,7 @@ class AppController extends Action {
         $receita = Container::getModel('Receita');
         $ingrediente = Container::getModel('Ingrediente');
 
-        $receita->__set('id', $_POST['id']);
-
+        $receita->__set('id', $_GET['id']);
         $dados = $receita->getReceitaPorId();
 
         echo json_encode(array(

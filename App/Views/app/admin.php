@@ -10,9 +10,13 @@
                     <div class="card" style="width:500px;">
 
                         <?php if (!$receita['nome_imagem']) { ?>
-                            <img class="card-img-top" src="../../../assets/images/sem-imagem.jpeg">
+                            <a class="card-img-link" href="/receitas?id=<?= $receita['id_receita'] ?>">
+                                <img class="card-img-top" title="Visualizar receita" id="<?= $receita['id_receita'] ?>" src="../../../assets/images/sem-imagem.jpeg">
+                            </a>
                         <?php } else { ?>
-                            <img class="card-img-top" src="<?= "../../../uploads/" . $receita['nome_imagem'] . ""; ?>">
+                            <a class="card-img-link" href="/receitas?id=<?= $receita['id_receita'] ?>">
+                                <img class="card-img-top" title="Visualizar receita" id="<?= $receita['id_receita'] ?>" src="<?= "../../../uploads/" . $receita['nome_imagem'] . ""; ?>">
+                            </a>
                         <?php } ?>
 
                         <div class="card-body">

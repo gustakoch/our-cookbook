@@ -15,6 +15,8 @@
     <script src="../../assets/js/jQuery-3.4.1.js"></script>
     <script src="../../assets/js/jquery.mask.min.js"></script>
     <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/moment.js"></script>
+    <script src="../../assets/js/moment-locale.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Our CookBook</title>
@@ -34,8 +36,9 @@
                 <div class="modal-body">
                     <img id="img-receita-modal" src="" alt="Imagem da receita">
                     <div class="conteudo-receita">
-                        <small id="publicacao-receita">Publicado em </small>
-                        <small id="criacao-receita">Criado por </small>
+                        <div class="info-data-usuario">
+                            <small id="publicacao-receita"></small> <small id="criacao-receita"></small>
+                        </div>
 
                         <h6>Ingredientes</h6>
                         <ul id="lista-ingredientes"></ul>
@@ -158,12 +161,5 @@
 
     <?php $this->content(); ?>
 
-    <?php if ($_SESSION['id'] != "" && $_SESSION['nome'] != "") { ?>
-        <!-- <footer>
-            <div class="main-footer">
-                <span>© 2019 | Todos os direitos reservados.</span>
-            </div>
-        </footer> -->
-    <?php } ?>
 </body>
 </html>
