@@ -146,6 +146,7 @@ textarea { font-size: 14px; }
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
 }
 
 #img-label {

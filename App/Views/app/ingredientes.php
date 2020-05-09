@@ -4,7 +4,7 @@
             <h4>Ingredientes cadastrados</h4>
 
             <?php if (count($this->dados->ingredientes) > 0) { ?>
-                <table class="table table-bordered">
+                <table class="table table-bordered bg-white">
                     <thead>
                         <tr>
                             <th scope="col">Nome do ingrediente</th>
